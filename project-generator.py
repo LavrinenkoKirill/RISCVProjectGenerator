@@ -28,9 +28,9 @@ def create_makefile_project(args):
         libc_path = [None] * len(args.library_source)
         for n in range (len(args.library_source)):
             libc_path[n] = args.input_dir + '/' + args.library_source[n]     
-    os.mkdir(args.output_dir + "/build")
+    if (os.path.isdir(args.output_dir + "/build") == False): os.mkdir(args.output_dir + "/build")
     output_path = args.output_dir + "/build/" + args.output_file
-    os.mkdir(args.output_dir + "/object")
+    if (os.path.isdir(args.output_dir + "/object") == False): os.mkdir(args.output_dir + "/object")
     obj_main_path = args.output_dir + "/object/" + args.source.replace(".c",".o")
     
     if (args.library_source):
@@ -40,7 +40,7 @@ def create_makefile_project(args):
     else: obj_lib_path = ""
     
     if (args.library_header):
-        os.mkdir(args.output_dir + "/headers")
+        if (os.path.isdir(args.output_dir + "/headers") == False): os.mkdir(args.output_dir + "/headers")
         header_lib_path = [None] * len(args.library_header)
         for (n) in range(len(args.library_header)): 
             header_lib_path[n] = args.input_dir + '/' + args.library_header[n]
@@ -52,17 +52,23 @@ def create_makefile_project(args):
             cflags_str += '-' + args.cflags[n]+' '
     ldflags_str = ""
     if (args.ldflag) : 
-        os.mkdir(args.output_dir + "/bsp")
+        if (os.path.isdir(args.output_dir + "/bsp") == False):os.mkdir(args.output_dir + "/bsp")
         shutil.copy(args.input_dir + '/' + args.ldflag, args.output_dir + "/bsp/" + args.ldflag)
-        ldflags_str += '-T ' + args.input_dir + '/' + args.ldflag + ' '
+        ldflags_str += '-T ' + args.input_dir + '/' + args.ldflag + ' -nostartfiles'
 
+    if(os.path.isdir(args.output_dir + "/src") == False): os.mkdir(args.output_dir + "/src")
+    shutil.copy(args.input_dir + '/' + args.source, args.output_dir + "/src/" + args.source)
+    if (args.library_source):
+        for i in range (len(args.library_source)):
+            shutil.copy(args.input_dir + '/' + args.library_source[i], args.output_dir + "/src/" + args.library_source[i])
 
     result = tm.render(source = source_path
                        , output = output_path
                        , main_obj = obj_main_path
                        , lib_obj = str(obj_lib_path)[2:-2]
                        , lib_h = str(header_lib_path)[2:-2]
-                       , cflags = cflags_str)
+                       , cflags = cflags_str
+                       , ldflags = ldflags_str)
 
     f = open(args.output_dir + "/Makefile","w")
     f.write(result)
@@ -80,8 +86,7 @@ def create_vscode_project(args):
     env = Environment(loader = file_loader)
     tm = env.get_template('CMakeLists.template')
     source_path = args.input_dir + '/' + args.source
-    #output_path = args.output_dir + '/' + args.output_file
-    os.mkdir(args.output_dir + "/build")
+    if (os.path.isdir(args.output_dir + "/build") == False): os.mkdir(args.output_dir + "/build")
     output_path = args.output_file
     cflags_str=""
     if (args.cflags) : 
@@ -89,7 +94,7 @@ def create_vscode_project(args):
             cflags_str +=  '-' + args.cflags[n]+ ' '
     ldflags_str = ""
     if (args.ldflag) : 
-        os.mkdir(args.output_dir + "/bsp")
+        if (os.path.isdir(args.output_dir + "/bsp") == False): os.mkdir(args.output_dir + "/bsp")
         shutil.copy(args.input_dir + '/' + args.ldflag, args.output_dir + "/bsp/" + args.ldflag)
         ldflags_str += '-T ' + args.input_dir + '/' + args.ldflag + ' '
     result = tm.render(  source = source_path
@@ -99,7 +104,7 @@ def create_vscode_project(args):
     f = open( args.output_dir + '/' + "CMakeLists.txt","w")
     f.write(result)
     f.close()
-    os.mkdir(args.output_dir + "/.vscode")
+    if (os.path.isdir(args.output_dir + "/.vscode") == False): os.mkdir(args.output_dir + "/.vscode")
     shutil.copy("/home/lavrinenko/project/generator/templates/vscode_templates/c_cpp_properties.json",args.output_dir + "/.vscode/c_cpp_properties.json")
     shutil.copy("/home/lavrinenko/project/generator/templates/vscode_templates/settings.json",args.output_dir + "/.vscode/settings.json")
     vs_templates_loader = FileSystemLoader('templates/vscode_templates')
@@ -116,6 +121,12 @@ def create_vscode_project(args):
     tasks_file = open(args.output_dir + "/.vscode/tasks.json","w")
     tasks_file.write(result)
     tasks_file.close()
+    if (os.path.isdir(args.output_dir + "/src") == False): os.mkdir(args.output_dir + "/src")
+    shutil.copy(args.input_dir + '/' + args.source, args.output_dir + "/src/" + args.source)
+    if (args.library_source):
+        for i in range (len(args.library_source)):
+            shutil.copy(args.input_dir + '/' + args.library_source[i], args.output_dir + "/src/" + args.library_source[i])
+
 
 
 if (args.ide == "make"):
