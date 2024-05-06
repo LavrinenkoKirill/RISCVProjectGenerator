@@ -1,0 +1,6 @@
+{{output}}: {{main_obj}} {{lib_obj}}
+	riscv64-unknown-elf-gcc -o {{output}} {{main_obj}} {{lib_obj}} {{ldflags}}
+
+{{main_obj}}: {{source}} {{lib_h}}
+	riscv64-unknown-elf-gcc -c {{source}} -o {{main_obj}} {{cflags}}
+

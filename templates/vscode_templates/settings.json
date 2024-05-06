@@ -1,0 +1,33 @@
+{
+    "terminal.integrated.shellIntegration.enabled": true,
+    "debug.allowBreakpointsEverywhere": true,
+    "cmake.loggingLevel":"debug",
+    "cmake.options.advanced": {
+
+        "build": {
+            "statusBarVisibility": "visible"
+        },
+        "launch": {
+            "statusBarVisibility": "hidden",
+        },
+        "debug": {
+            "statusBarVisibility": "hidden"
+        },
+        "ctest": {
+          "statusBarVisibility": "hidden"
+        },
+        "testPreset": {
+          "statusBarVisibility": "hidden"
+        },
+        "launchTarget": {
+          "statusBarVisibility": "hidden"
+        },
+        "buildTarget": {
+          "statusBarVisibility": "visible"
+        },
+        "configurePreset": {
+          "statusBarVisibility": "icon"
+          }
+    },
+    "cmake.configureOnOpen": false
+}

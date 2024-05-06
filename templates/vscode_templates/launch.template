@@ -1,0 +1,33 @@
+{  
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug",
+      "type": "gdb",
+      "request": "attach",
+      "executable": "{{output}}",
+      "remote": true,
+      "preLaunchTask": "Run Spike and Openocd",
+      "postDebugTask": "Stop Spike and Openocd",
+      "target": "localhost:3333",
+      "cwd": "${workspaceRoot}",
+      "gdbpath": "${env:HOME}/project/xpack-riscv-none-elf-gcc-13.2.0-2/bin/riscv-none-elf-gdb",
+      "autorun": [
+        "monitor reset halt",
+        "load"
+      ],
+      "stopAtConnect": true
+    },
+    {
+      "type": "gdb",
+      "name": "Launch Spike",
+      "cwd": "${workspaceRoot}",
+      "request": "launch",
+      "target": "{{output}}",
+      "preLaunchTask": "Launch the program in Spike",
+      "gdbpath": "${env:HOME}/project/xpack-riscv-none-elf-gcc-13.2.0-2/bin/riscv-none-elf-gdb",
+      "autorun": ["q"],
+      "internalConsoleOptions": "neverOpen"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+    "configurations": [
+        {
+            "name": "riscvgcc",
+            "compilerPath": "/opt/cloudbear/bin/riscv64-unknown-elf-gcc",
+            "includePath": [
+                "${workspaceRoot}",
+                "${workspaceRoot}/**"
+            ],
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}
