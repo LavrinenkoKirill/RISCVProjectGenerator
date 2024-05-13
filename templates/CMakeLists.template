@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(test C)
 set(CMAKE_C_COMPILER riscv64-unknown-elf-gcc)
-set ( CMAKE_C_FLAGS {{cflags}})
+set ( CMAKE_C_FLAGS "{{cflags}}")
 add_executable({{output}} {{source}})
 SET(LINKER_SCRIPT {{linker_script}})
 set_target_properties({{output}} PROPERTIES LINK_DEPENDS "${LINKER_SCRIPT}")

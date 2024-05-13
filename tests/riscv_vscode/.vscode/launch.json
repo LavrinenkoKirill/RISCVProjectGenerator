@@ -5,13 +5,13 @@
       "name": "Debug",
       "type": "gdb",
       "request": "attach",
-      "executable": "{{output}}",
+      "executable": "/home/lavrinenko/project/generator/tests/riscv_vscode/build/edit.elf",
       "remote": true,
       "preLaunchTask": "Run Spike and Openocd",
       "postDebugTask": "Stop Spike and Openocd",
       "target": "localhost:3333",
       "cwd": "${workspaceRoot}",
-      "gdbpath": "{{gdb}}",
+      "gdbpath": "${env:HOME}/project/xpack-riscv-none-elf-gcc-13.2.0-2/bin/riscv-none-elf-gdb",
       "autorun": [
         "monitor reset halt",
         "load"
@@ -23,9 +23,9 @@
       "name": "Launch Spike",
       "cwd": "${workspaceRoot}",
       "request": "launch",
-      "target": "{{output}}",
+      "target": "/home/lavrinenko/project/generator/tests/riscv_vscode/build/edit.elf",
       "preLaunchTask": "Launch the program in Spike",
-      "gdbpath": "{{gdb}}",
+      "gdbpath": "${env:HOME}/project/xpack-riscv-none-elf-gcc-13.2.0-2/bin/riscv-none-elf-gdb",
       "autorun": ["q"],
       "internalConsoleOptions": "neverOpen"
     }

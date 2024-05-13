@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": ["python3 project-generator.py -ide make -idir ~/project/code/riscv_make -odir ~/project/code/riscv_make -s main.c  -libc util.c -libh util.h -o edit --cflags g"]
+        }
+    ]
+}
