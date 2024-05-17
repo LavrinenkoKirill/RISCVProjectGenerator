@@ -1,5 +1,5 @@
 #!/bin/bash
-xterm -e spike --rbb-port=9824 -m0x10100000:0x20000 {{executable}} &
+xterm -e spike --rbb-port=9824 {{executable}} &
 sleep 1
 xterm -e openocd -f {{openocd_cfg}} &
 sleep 1

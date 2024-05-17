@@ -25,10 +25,6 @@ class ProjectGenerator:
             for n in range(len(args.cflags)):
                 self.cflags_str += '-' + args.cflags[n]+' '
         
-        self.ldflags_str = ""
-        home = os.path.expanduser("~")
-        if (args.ldflag) : 
-            self.ldflags_str += '-T ' + home + args.input_dir + '/' + args.ldflag + ' -nostartfiles'
 
     
     def createFolders(self,args):
@@ -36,22 +32,18 @@ class ProjectGenerator:
         if (os.path.isdir(home + args.output_dir + "/build") == False): os.mkdir(home + args.output_dir + "/build")
         if (args.ide == "make"):
             if (os.path.isdir(home + args.output_dir + "/object") == False): os.mkdir(home + args.output_dir + "/object")
-        if (args.library_header):
-            if (os.path.isdir(home + args.output_dir + "/headers") == False): os.mkdir(home + args.output_dir + "/headers")
-        if (args.ldflag):
-            if (os.path.isdir(home + args.output_dir + "/bsp") == False):os.mkdir(home + args.output_dir + "/bsp")
+        #if (args.library_header):
+            #if (os.path.isdir(home + args.output_dir + "/headers") == False): os.mkdir(home + args.output_dir + "/headers")
         if (os.path.isdir(home + args.output_dir + "/src") == False): os.mkdir(home + args.output_dir + "/src")
 
     def copyFiles(self,args):
         home = os.path.expanduser("~")
         if (args.library_header):
             for (n) in range(len(args.library_header)): 
-                shutil.copy(home + self.header_lib_path[n],home + args.output_dir + "/headers/" + args.library_header[n])
-
-        if (args.ldflag) : 
-            shutil.copy(home + args.input_dir + '/' + args.ldflag, home + args.output_dir + "/bsp/" + args.ldflag)
+                shutil.copy(home + self.header_lib_path[n],home + args.output_dir + "/src/" + args.library_header[n])
         
         shutil.copy(home + self.source_path, home + args.output_dir + "/src/" + args.source)
+        shutil.copytree("bsp", home + args.input_dir + "/bsp")
 
         if (args.openocd): shutil.copy(home + args.input_dir + '/' + args.openocd, home + args.output_dir + "/bsp/" + args.openocd)
 
@@ -66,6 +58,7 @@ class MakeProjectGenerator(ProjectGenerator):
         env = Environment(loader = file_loader)
         self.template = env.get_template('Makefile.template')
         if (args.openocd): self.openocd = args.output_dir + "/bsp/" + args.openocd
+        
     
     def createDebugScripts(self,args):
         home = os.path.expanduser("~")
@@ -91,8 +84,7 @@ class MakeProjectGenerator(ProjectGenerator):
                        , main_obj = home + self.obj_main_path
                        , lib_obj = object_str
                        , lib_h = header_str
-                       , cflags = self.cflags_str
-                       , ldflags = self.ldflags_str)
+                       , cflags = self.cflags_str)
         f = open(home + args.output_dir + "/Makefile","w")
         f.write(result)
 
@@ -107,7 +99,7 @@ class MakeProjectGenerator(ProjectGenerator):
                 obj_string = home + self.obj_lib_path[n] + ' : ' + home + args.input_dir + '/' + args.library_source[n] + " " + home + self.header_lib_path[n]
                 f.write(obj_string)
                 f.write('\n')
-                f.write('\t' + "riscv64-unknown-elf-gcc -o " + home + self.obj_lib_path[n] + " -c " + libc_path[n])
+                f.write('\t' + "riscv64-unknown-elf-gcc -o " + home + self.obj_lib_path[n] + " -c " + libc_path[n] + " $(COMPILER_FLAGS)")
         f.close()
 
         if (args.openocd): self.createDebugScripts(args)
@@ -136,6 +128,12 @@ class VSCodeGenerator(ProjectGenerator):
             elif ("openocdPath" in line):
                 index = line.find(":")
                 self.openocd_path = line[index + 2:-1]
+        
+        if (args.library_source):
+            self.output_lib_path = [None] * len(args.library_source)
+            for (n) in range(len(args.library_source)): 
+                self.output_lib_path[n] = args.output_dir + '/src/' + args.library_source[n]
+        else: self.output_lib_path = ""
             
 
     
@@ -155,7 +153,6 @@ class VSCodeGenerator(ProjectGenerator):
         launch_file = open(home + args.output_dir + "/.vscode/launch.json","w")
         launch_file.write(result)
         launch_file.close()
-
 
         tm = env.get_template("c_cpp_properties.template")
         result = tm.render(compiler = self.compiler_path)
@@ -178,10 +175,20 @@ class VSCodeGenerator(ProjectGenerator):
         self.createFolders(args)
         self.copyFiles(args)
         home = os.path.expanduser("~")
+
+        libs = str(args.library_source)[2:-2].replace(".c","")
+        library_str = ""
+        if (args.library_source):
+            for n in range (len(args.library_source)):
+                lib_name = args.library_source[n].replace(".c","")
+                library_str += "add_library( " + lib_name + " STATIC " + home + self.output_lib_path[n] + ")" + '\n'
+                library_str += "target_compile_options( " + lib_name + " PUBLIC ${COMPILER_LIST})" + '\n' 
         result = self.template.render(source = home + self.source_path
                        , output = self.output_path
                        , cflags = self.cflags_str
-                       , linker_script = home + args.input_dir + '/' + args.ldflag)
+                       , libraries = library_str
+                       , lib_names = libs
+                       , output_dir = home + args.output_dir)
         f = open(home + args.output_dir + '/' + "CMakeLists.txt","w")
         f.write(result)
         f.close()
@@ -197,7 +204,6 @@ def parseArguments():
     parser.add_argument("-libc", "--library_source", type = str, help="Source library code file", required=False, nargs="+")
     parser.add_argument("-libh", "--library_header", type = str, help="Source library header file", required=False, nargs="+")
     parser.add_argument("--cflags",type = str, help="Flags for compilation", required=False, nargs="+")
-    parser.add_argument("--ldflag", type = str, help = "Flag for linker script", required=False)
     parser.add_argument("--openocd", type = str, help = "OpenOCD configuration", required = False)
     parser.add_argument("--config", type = str, help = "Compiler,GDB and Openocd configuration", required=False)
     return parser.parse_args()

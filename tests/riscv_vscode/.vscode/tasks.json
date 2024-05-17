@@ -75,17 +75,14 @@
       },
       {
         "label": "Stop Openocd",
-        "type": "process",
-        //"command": "${command:workbench.action.tasks.terminate}",
+        "type": "shell",
         "command": "killall -9 openocd",
-        "args": ["terminateAll"]
       },
       {
         "label": "Launch the program in Spike",
         "type": "process",
         "command": "/usr/bin/spike",
         "args": [
-          "--pc=0x10110000",
           "/home/lavrinenko/project/generator/tests/riscv_vscode/build/edit.elf"
         ],
         "isBackground": true,
@@ -118,7 +115,6 @@
         "args": [
           "--rbb-port",
           "9824",
-          "-m0x10100000:0x20000",
           "/home/lavrinenko/project/generator/tests/riscv_vscode/build/edit.elf"
         ],
         "isBackground": true,
@@ -147,10 +143,8 @@
       },
       {
         "label": "Stop Spike",
-        "type": "process",
-        //"command": "${command:workbench.action.tasks.terminate}",
+        "type": "shell",
         "command": "killall -9 spike",
-        "args": ["terminateAll"]
       },
       {
         "label": "Run Spike and Openocd",

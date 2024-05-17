@@ -1,6 +1,19 @@
-{{output}}: {{main_obj}} {{lib_obj}}
-	riscv64-unknown-elf-gcc -o {{output}} {{main_obj}} {{lib_obj}} {{ldflags}}
+PREFIX = .
+SRC = $(wildcard $(PREFIX)/bsp/*.c)\
+	$(wildcard $(PREFIX)/bsp/*.S)
+	
+OBJ = $(addsuffix .o, $(basename $(notdir $(SRC))))
+
+GCC = riscv64-unknown-elf-gcc
+COMPILER_FLAGS = -mcmodel=medany -std=gnu99 -fno-builtin-printf -march=rv64gcv -mabi=lp64d {{cflags}}
+LINKER_FLAGS = -static -nostdlib -nostartfiles -T $(PREFIX)/bsp/link.ld
+
+{{output}}: {{main_obj}} {{lib_obj}} $(OBJ)
+	$(GCC) -o {{output}} {{main_obj}} {{lib_obj}} $(OBJ) $(LINKER_FLAGS)
+	
+$(OBJ): $(SRC)
+	$(GCC) $(COMPILER_FLAGS) -c $(SRC)
 
 {{main_obj}}: {{source}} {{lib_h}}
-	riscv64-unknown-elf-gcc -c {{source}} -o {{main_obj}} {{cflags}}
+	$(GCC) -c {{source}} -o {{main_obj}} $(COMPILER_FLAGS)
 
