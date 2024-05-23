@@ -2,8 +2,8 @@ import os
 from jinja2 import Environment,FileSystemLoader,Template
 import argparse
 import shutil
-import sys
 
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 class ProjectGenerator:
     def __init__(self,args):
@@ -34,9 +34,8 @@ class ProjectGenerator:
                 shutil.copy(self.header_lib_path[n],args.odir + '/' + args.libh[n])
         
         shutil.copy(self.source_path,args.odir + '/' + args.source)
-        shutil.copytree("bsp",args.odir + "/bsp")
-
-        shutil.copy("templates/spike.cfg",args.odir + "/spike.cfg")
+        if (os.path.isdir(args.odir + "/bsp") == False):shutil.copytree(ROOT_DIR + "/bsp",args.odir + "/bsp")
+        if (os.path.isfile(args.odir + "/spike.cfg") == False):shutil.copy(ROOT_DIR + "/templates/spike.cfg",args.odir + "/spike.cfg")
 
         if (args.libc):
             for i in range (len(args.libc)):
@@ -45,21 +44,21 @@ class ProjectGenerator:
 class MakeProjectGenerator(ProjectGenerator):
     def __init__(self,args):
         super().__init__(args)
-        file_loader = FileSystemLoader('templates')
+        file_loader = FileSystemLoader(ROOT_DIR + '/templates')
         env = Environment(loader = file_loader)
         self.template = env.get_template('Makefile.template')
         self.openocd = args.odir + "/spike.cfg"
         
     
     def createDebugScripts(self,args):
-        bash_templates_loader = FileSystemLoader('templates/bash')
+        bash_templates_loader = FileSystemLoader(ROOT_DIR + '/templates/bash')
         env = Environment(loader = bash_templates_loader)
         tm = env.get_template('start_debug.template')
         result = tm.render(executable = self.output_path, openocd_cfg = self.openocd)
         f = open(args.odir + "/start_debug.sh","w")
         f.write(result)
-        shutil.copy("templates/bash/end_debug.sh",args.odir + "/end_debug.sh")
-        shutil.copy("templates/bash/commands.txt",args.odir + "/commands.txt")
+        shutil.copy(ROOT_DIR + "/templates/bash/end_debug.sh",args.odir + "/end_debug.sh")
+        shutil.copy(ROOT_DIR + "/templates/bash/commands.txt",args.odir + "/commands.txt")
 
     def generateProject(self,args):
         super().createFolders(args)
@@ -97,12 +96,12 @@ class MakeProjectGenerator(ProjectGenerator):
 class VSCodeGenerator(ProjectGenerator):
     def __init__(self,args):
         super().__init__(args)
-        file_loader = FileSystemLoader('templates')
+        file_loader = FileSystemLoader(ROOT_DIR + '/templates')
         env = Environment(loader = file_loader)
         self.template = env.get_template('CMakeLists.template')
         self.vsfolder = args.odir + "/.vscode"
         self.output_path = args.output_file
-        f = open("config.yaml","r")
+        f = open(ROOT_DIR + "/config.yaml","r")
         for line in f:
             if ("compilerPath" in line):
                 index = line.find(":")
@@ -131,7 +130,7 @@ class VSCodeGenerator(ProjectGenerator):
     
     def copyFiles(self, args):
         super().copyFiles(args)
-        vs_templates_loader = FileSystemLoader('templates/vscode')
+        vs_templates_loader = FileSystemLoader(ROOT_DIR + '/templates/vscode')
         env = Environment(loader = vs_templates_loader)
         tm = env.get_template('launch.template')
         result = tm.render(output = args.odir + "/build/" + args.output_file,
@@ -146,7 +145,7 @@ class VSCodeGenerator(ProjectGenerator):
         cpp_file.write(result)
         cpp_file.close()
 
-        shutil.copy("templates/vscode/settings.json",args.odir + "/.vscode/settings.json")
+        shutil.copy(ROOT_DIR + "/templates/vscode/settings.json",args.odir + "/.vscode/settings.json")
 
         tm = env.get_template('tasks.template')
         result = tm.render(output = args.odir + "/build/" + args.output_file, 
