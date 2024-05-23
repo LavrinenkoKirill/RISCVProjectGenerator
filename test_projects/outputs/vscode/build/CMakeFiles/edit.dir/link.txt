@@ -1,1 +1,0 @@
-riscv64-unknown-elf-gcc -static -nostdlib -nostartfiles -T /home/lavrinenko/project/generator/test_projects/outputs/vscode/bsp/link.ld -mcmodel=medany -std=gnu99 -fno-builtin-printf -march=rv64gcv -mabi=lp64d -g CMakeFiles/edit.dir/main.c.o -o edit  libcrt.a libsyscalls.a libutil.a 

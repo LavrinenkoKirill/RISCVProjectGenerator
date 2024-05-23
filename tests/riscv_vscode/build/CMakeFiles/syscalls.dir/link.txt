@@ -1,2 +1,0 @@
-/opt/cloudbear/bin/riscv64-unknown-elf-ar qc libsyscalls.a CMakeFiles/syscalls.dir/bsp/syscalls.c.o
-/opt/cloudbear/bin/riscv64-unknown-elf-ranlib libsyscalls.a

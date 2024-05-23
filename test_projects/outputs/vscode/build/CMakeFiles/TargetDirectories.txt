@@ -1,6 +1,0 @@
-/home/lavrinenko/project/generator/test_projects/outputs/vscode/build/CMakeFiles/crt.dir
-/home/lavrinenko/project/generator/test_projects/outputs/vscode/build/CMakeFiles/syscalls.dir
-/home/lavrinenko/project/generator/test_projects/outputs/vscode/build/CMakeFiles/edit.dir
-/home/lavrinenko/project/generator/test_projects/outputs/vscode/build/CMakeFiles/util.dir
-/home/lavrinenko/project/generator/test_projects/outputs/vscode/build/CMakeFiles/edit_cache.dir
-/home/lavrinenko/project/generator/test_projects/outputs/vscode/build/CMakeFiles/rebuild_cache.dir
