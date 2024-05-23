@@ -1,0 +1,1 @@
+riscv64-unknown-elf-gcc -g -static -nostdlib -nostartfiles -T /home/lavrinenko/project/generator/tests/riscv_vscode/bsp/link.ld -mcmodel=medany -std=gnu99 -fno-builtin-printf -march=rv64gcv -mabi=lp64d -g CMakeFiles/edit.elf.dir/rot13.c.o -o edit.elf  libcrt.a libsyscalls.a 

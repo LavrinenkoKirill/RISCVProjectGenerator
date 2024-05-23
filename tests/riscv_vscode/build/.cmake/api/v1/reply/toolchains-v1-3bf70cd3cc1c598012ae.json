@@ -1,0 +1,50 @@
+{
+	"kind" : "toolchains",
+	"toolchains" : 
+	[
+		{
+			"compiler" : 
+			{
+				"id" : "GNU",
+				"implicit" : 
+				{
+					"includeDirectories" : 
+					[
+						"/opt/cloudbear/lib/gcc/riscv64-unknown-elf/12.1.0/include",
+						"/opt/cloudbear/lib/gcc/riscv64-unknown-elf/12.1.0/include-fixed",
+						"/opt/cloudbear/riscv64-unknown-elf/include"
+					],
+					"linkDirectories" : 
+					[
+						"/opt/cloudbear/lib/gcc/riscv64-unknown-elf/12.1.0/rv64imafdc_zicsr_zifencei_zmmul/lp64d",
+						"/opt/cloudbear/riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d",
+						"/opt/cloudbear/lib/gcc/riscv64-unknown-elf/12.1.0",
+						"/opt/cloudbear/lib/gcc",
+						"/opt/cloudbear/riscv64-unknown-elf/lib"
+					],
+					"linkFrameworkDirectories" : [],
+					"linkLibraries" : 
+					[
+						"gcc",
+						"c",
+						"gloss",
+						"gcc"
+					]
+				},
+				"path" : "riscv64-unknown-elf-gcc",
+				"version" : "12.1.0"
+			},
+			"language" : "C",
+			"sourceFileExtensions" : 
+			[
+				"c",
+				"m"
+			]
+		}
+	],
+	"version" : 
+	{
+		"major" : 1,
+		"minor" : 0
+	}
+}

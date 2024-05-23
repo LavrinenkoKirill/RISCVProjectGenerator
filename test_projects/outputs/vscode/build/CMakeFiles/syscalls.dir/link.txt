@@ -1,0 +1,2 @@
+/usr/bin/ar qc libsyscalls.a CMakeFiles/syscalls.dir/bsp/syscalls.c.o
+/usr/bin/ranlib libsyscalls.a

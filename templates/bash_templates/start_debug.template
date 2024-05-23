@@ -1,6 +1,0 @@
-#!/bin/bash
-xterm -e spike --rbb-port=9824 {{executable}} &
-sleep 1
-xterm -e openocd -f {{openocd_cfg}} &
-sleep 1
-riscv-none-elf-gdb {{executable}}

@@ -1,0 +1,201 @@
+The system is: Linux - 6.5.0-35-generic - x86_64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /opt/cloudbear/bin/riscv64-unknown-elf-gcc 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is GNU, found in "/home/lavrinenko/project/generator/tests/riscv_vscode/build/CMakeFiles/3.22.1/CompilerIdC/a.out"
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: /home/lavrinenko/project/generator/tests/riscv_vscode/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_61f17/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_61f17.dir/build.make CMakeFiles/cmTC_61f17.dir/build
+gmake[1]: Entering directory '/home/lavrinenko/project/generator/tests/riscv_vscode/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_61f17.dir/CMakeCCompilerABI.c.o
+/opt/cloudbear/bin/riscv64-unknown-elf-gcc   -v -o CMakeFiles/cmTC_61f17.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.22/Modules/CMakeCCompilerABI.c
+Using built-in specs.
+COLLECT_GCC=/opt/cloudbear/bin/riscv64-unknown-elf-gcc
+Target: riscv64-unknown-elf
+Configured with: ../riscv-gcc/configure --target=riscv64-unknown-elf --prefix=/home/jenkins/workspace/cb_task/riscv --datarootdir=/home/jenkins/workspace/cb_task/riscv/share/riscv64-unknown-elf --disable-shared --disable-threads --enable-tls --enable-languages=c,c++ --with-system-zlib --with-newlib --with-sysroot=/home/jenkins/workspace/cb_task/riscv/riscv64-unknown-elf --with-native-system-header-dir=/include --disable-libmudflap --disable-libssp --disable-libquadmath --disable-libgomp --disable-nls 'CFLAGS_FOR_TARGET=-O2 -mcmodel=medany' 'CXXFLAGS_FOR_TARGET=-O2 -mcmodel=medany'
+Thread model: single
+Supported LTO compression algorithms: zlib zstd
+gcc version 12.1.0 (GCC) 
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_61f17.dir/CMakeCCompilerABI.c.o' '-c' '-march=rv64imafdc_zicsr_zifencei' '-mabi=lp64d' '-misa-spec=20191213' '-march=rv64imafdc_zicsr_zifencei_zmmul' '-dumpdir' 'CMakeFiles/cmTC_61f17.dir/'
+ /opt/cloudbear/bin/../libexec/gcc/riscv64-unknown-elf/12.1.0/cc1 -quiet -v -imultilib rv64imafdc_zicsr_zifencei_zmmul/lp64d -iprefix /opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/ -isysroot /opt/cloudbear/bin/../riscv64-unknown-elf /usr/share/cmake-3.22/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_61f17.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -march=rv64imafdc_zicsr_zifencei -mabi=lp64d -misa-spec=20191213 -march=rv64imafdc_zicsr_zifencei_zmmul -version -o /tmp/cczTQvLv.s
+GNU C17 (GCC) version 12.1.0 (riscv64-unknown-elf)
+	compiled by GNU C version 8.5.0 20210514 (Red Hat 8.5.0-21), GMP version 6.1.2, MPFR version 3.1.6-p2, MPC version 1.1.0, isl version none
+warning: GMP header version 6.1.2 differs from library version 6.2.1.
+warning: MPFR header version 3.1.6-p2 differs from library version 4.1.0.
+warning: MPC header version 1.1.0 differs from library version 1.2.1.
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+ignoring duplicate directory "/opt/cloudbear/bin/../lib/gcc/../../lib/gcc/riscv64-unknown-elf/12.1.0/include"
+ignoring nonexistent directory "/opt/cloudbear/bin/../riscv64-unknown-elf/usr/local/include"
+ignoring duplicate directory "/opt/cloudbear/bin/../lib/gcc/../../lib/gcc/riscv64-unknown-elf/12.1.0/include-fixed"
+ignoring duplicate directory "/opt/cloudbear/bin/../lib/gcc/../../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/include"
+ignoring duplicate directory "/opt/cloudbear/bin/../riscv64-unknown-elf/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/include
+ /opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/include-fixed
+ /opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/include
+End of search list.
+GNU C17 (GCC) version 12.1.0 (riscv64-unknown-elf)
+	compiled by GNU C version 8.5.0 20210514 (Red Hat 8.5.0-21), GMP version 6.1.2, MPFR version 3.1.6-p2, MPC version 1.1.0, isl version none
+warning: GMP header version 6.1.2 differs from library version 6.2.1.
+warning: MPFR header version 3.1.6-p2 differs from library version 4.1.0.
+warning: MPC header version 1.1.0 differs from library version 1.2.1.
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+Compiler executable checksum: 0d00f383c01c36148a8ac54616c5e6dc
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_61f17.dir/CMakeCCompilerABI.c.o' '-c' '-march=rv64imafdc_zicsr_zifencei' '-mabi=lp64d' '-misa-spec=20191213' '-march=rv64imafdc_zicsr_zifencei_zmmul' '-dumpdir' 'CMakeFiles/cmTC_61f17.dir/'
+ /opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/bin/as -v --traditional-format -march=rv64imafdc_zicsr_zifencei -march=rv64imafdc_zicsr_zifencei_zmmul -mabi=lp64d -misa-spec=20191213 -o CMakeFiles/cmTC_61f17.dir/CMakeCCompilerABI.c.o /tmp/cczTQvLv.s
+GNU assembler version 2.38 (riscv64-unknown-elf) using BFD version (GNU Binutils) 2.38
+COMPILER_PATH=/opt/cloudbear/bin/../libexec/gcc/riscv64-unknown-elf/12.1.0/:/opt/cloudbear/bin/../libexec/gcc/:/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/bin/
+LIBRARY_PATH=/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/rv64imafdc_zicsr_zifencei_zmmul/lp64d/:/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d/:/opt/cloudbear/bin/../riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d/:/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/:/opt/cloudbear/bin/../lib/gcc/:/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/lib/:/opt/cloudbear/bin/../riscv64-unknown-elf/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_61f17.dir/CMakeCCompilerABI.c.o' '-c' '-march=rv64imafdc_zicsr_zifencei' '-mabi=lp64d' '-misa-spec=20191213' '-march=rv64imafdc_zicsr_zifencei_zmmul' '-dumpdir' 'CMakeFiles/cmTC_61f17.dir/CMakeCCompilerABI.c.'
+Linking C executable cmTC_61f17
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_61f17.dir/link.txt --verbose=1
+/opt/cloudbear/bin/riscv64-unknown-elf-gcc  -v CMakeFiles/cmTC_61f17.dir/CMakeCCompilerABI.c.o -o cmTC_61f17 
+Using built-in specs.
+COLLECT_GCC=/opt/cloudbear/bin/riscv64-unknown-elf-gcc
+COLLECT_LTO_WRAPPER=/opt/cloudbear/bin/../libexec/gcc/riscv64-unknown-elf/12.1.0/lto-wrapper
+Target: riscv64-unknown-elf
+Configured with: ../riscv-gcc/configure --target=riscv64-unknown-elf --prefix=/home/jenkins/workspace/cb_task/riscv --datarootdir=/home/jenkins/workspace/cb_task/riscv/share/riscv64-unknown-elf --disable-shared --disable-threads --enable-tls --enable-languages=c,c++ --with-system-zlib --with-newlib --with-sysroot=/home/jenkins/workspace/cb_task/riscv/riscv64-unknown-elf --with-native-system-header-dir=/include --disable-libmudflap --disable-libssp --disable-libquadmath --disable-libgomp --disable-nls 'CFLAGS_FOR_TARGET=-O2 -mcmodel=medany' 'CXXFLAGS_FOR_TARGET=-O2 -mcmodel=medany'
+Thread model: single
+Supported LTO compression algorithms: zlib zstd
+gcc version 12.1.0 (GCC) 
+COMPILER_PATH=/opt/cloudbear/bin/../libexec/gcc/riscv64-unknown-elf/12.1.0/:/opt/cloudbear/bin/../libexec/gcc/:/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/bin/
+LIBRARY_PATH=/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/rv64imafdc_zicsr_zifencei_zmmul/lp64d/:/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d/:/opt/cloudbear/bin/../riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d/:/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/:/opt/cloudbear/bin/../lib/gcc/:/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/lib/:/opt/cloudbear/bin/../riscv64-unknown-elf/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_61f17' '-march=rv64imafdc_zicsr_zifencei' '-mabi=lp64d' '-misa-spec=20191213' '-march=rv64imafdc_zicsr_zifencei_zmmul' '-dumpdir' 'cmTC_61f17.'
+ /opt/cloudbear/bin/../libexec/gcc/riscv64-unknown-elf/12.1.0/collect2 -plugin /opt/cloudbear/bin/../libexec/gcc/riscv64-unknown-elf/12.1.0/liblto_plugin.so -plugin-opt=/opt/cloudbear/bin/../libexec/gcc/riscv64-unknown-elf/12.1.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccvQ6laq.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgloss -plugin-opt=-pass-through=-lgcc --sysroot=/opt/cloudbear/bin/../riscv64-unknown-elf -melf64lriscv -o cmTC_61f17 /opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d/crt0.o /opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/rv64imafdc_zicsr_zifencei_zmmul/lp64d/crtbegin.o -L/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/rv64imafdc_zicsr_zifencei_zmmul/lp64d -L/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d -L/opt/cloudbear/bin/../riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d -L/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0 -L/opt/cloudbear/bin/../lib/gcc -L/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/lib -L/opt/cloudbear/bin/../riscv64-unknown-elf/lib CMakeFiles/cmTC_61f17.dir/CMakeCCompilerABI.c.o -lgcc --start-group -lc -lgloss --end-group -lgcc /opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/rv64imafdc_zicsr_zifencei_zmmul/lp64d/crtend.o
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_61f17' '-march=rv64imafdc_zicsr_zifencei' '-mabi=lp64d' '-misa-spec=20191213' '-march=rv64imafdc_zicsr_zifencei_zmmul' '-dumpdir' 'cmTC_61f17.'
+gmake[1]: Leaving directory '/home/lavrinenko/project/generator/tests/riscv_vscode/build/CMakeFiles/CMakeTmp'
+
+
+
+Parsed C implicit include dir info from above output: rv=done
+  found start of include info
+  found start of implicit include info
+    add: [/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/include]
+    add: [/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/include-fixed]
+    add: [/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/include]
+  end of search list found
+  collapse include dir [/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/include] ==> [/opt/cloudbear/lib/gcc/riscv64-unknown-elf/12.1.0/include]
+  collapse include dir [/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/include-fixed] ==> [/opt/cloudbear/lib/gcc/riscv64-unknown-elf/12.1.0/include-fixed]
+  collapse include dir [/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/include] ==> [/opt/cloudbear/riscv64-unknown-elf/include]
+  implicit include dirs: [/opt/cloudbear/lib/gcc/riscv64-unknown-elf/12.1.0/include;/opt/cloudbear/lib/gcc/riscv64-unknown-elf/12.1.0/include-fixed;/opt/cloudbear/riscv64-unknown-elf/include]
+
+
+Parsed C implicit link information from above output:
+  link line regex: [^( *|.*[/\])(riscv64-unknown-elf-ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /home/lavrinenko/project/generator/tests/riscv_vscode/build/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_61f17/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_61f17.dir/build.make CMakeFiles/cmTC_61f17.dir/build]
+  ignore line: [gmake[1]: Entering directory '/home/lavrinenko/project/generator/tests/riscv_vscode/build/CMakeFiles/CMakeTmp']
+  ignore line: [Building C object CMakeFiles/cmTC_61f17.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/opt/cloudbear/bin/riscv64-unknown-elf-gcc   -v -o CMakeFiles/cmTC_61f17.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.22/Modules/CMakeCCompilerABI.c]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/opt/cloudbear/bin/riscv64-unknown-elf-gcc]
+  ignore line: [Target: riscv64-unknown-elf]
+  ignore line: [Configured with: ../riscv-gcc/configure --target=riscv64-unknown-elf --prefix=/home/jenkins/workspace/cb_task/riscv --datarootdir=/home/jenkins/workspace/cb_task/riscv/share/riscv64-unknown-elf --disable-shared --disable-threads --enable-tls --enable-languages=c c++ --with-system-zlib --with-newlib --with-sysroot=/home/jenkins/workspace/cb_task/riscv/riscv64-unknown-elf --with-native-system-header-dir=/include --disable-libmudflap --disable-libssp --disable-libquadmath --disable-libgomp --disable-nls 'CFLAGS_FOR_TARGET=-O2 -mcmodel=medany' 'CXXFLAGS_FOR_TARGET=-O2 -mcmodel=medany']
+  ignore line: [Thread model: single]
+  ignore line: [Supported LTO compression algorithms: zlib zstd]
+  ignore line: [gcc version 12.1.0 (GCC) ]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_61f17.dir/CMakeCCompilerABI.c.o' '-c' '-march=rv64imafdc_zicsr_zifencei' '-mabi=lp64d' '-misa-spec=20191213' '-march=rv64imafdc_zicsr_zifencei_zmmul' '-dumpdir' 'CMakeFiles/cmTC_61f17.dir/']
+  ignore line: [ /opt/cloudbear/bin/../libexec/gcc/riscv64-unknown-elf/12.1.0/cc1 -quiet -v -imultilib rv64imafdc_zicsr_zifencei_zmmul/lp64d -iprefix /opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/ -isysroot /opt/cloudbear/bin/../riscv64-unknown-elf /usr/share/cmake-3.22/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_61f17.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -march=rv64imafdc_zicsr_zifencei -mabi=lp64d -misa-spec=20191213 -march=rv64imafdc_zicsr_zifencei_zmmul -version -o /tmp/cczTQvLv.s]
+  ignore line: [GNU C17 (GCC) version 12.1.0 (riscv64-unknown-elf)]
+  ignore line: [	compiled by GNU C version 8.5.0 20210514 (Red Hat 8.5.0-21)  GMP version 6.1.2  MPFR version 3.1.6-p2  MPC version 1.1.0  isl version none]
+  ignore line: [warning: GMP header version 6.1.2 differs from library version 6.2.1.]
+  ignore line: [warning: MPFR header version 3.1.6-p2 differs from library version 4.1.0.]
+  ignore line: [warning: MPC header version 1.1.0 differs from library version 1.2.1.]
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [ignoring duplicate directory "/opt/cloudbear/bin/../lib/gcc/../../lib/gcc/riscv64-unknown-elf/12.1.0/include"]
+  ignore line: [ignoring nonexistent directory "/opt/cloudbear/bin/../riscv64-unknown-elf/usr/local/include"]
+  ignore line: [ignoring duplicate directory "/opt/cloudbear/bin/../lib/gcc/../../lib/gcc/riscv64-unknown-elf/12.1.0/include-fixed"]
+  ignore line: [ignoring duplicate directory "/opt/cloudbear/bin/../lib/gcc/../../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/include"]
+  ignore line: [ignoring duplicate directory "/opt/cloudbear/bin/../riscv64-unknown-elf/include"]
+  ignore line: [#include "..." search starts here:]
+  ignore line: [#include <...> search starts here:]
+  ignore line: [ /opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/include]
+  ignore line: [ /opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/include-fixed]
+  ignore line: [ /opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/include]
+  ignore line: [End of search list.]
+  ignore line: [GNU C17 (GCC) version 12.1.0 (riscv64-unknown-elf)]
+  ignore line: [	compiled by GNU C version 8.5.0 20210514 (Red Hat 8.5.0-21)  GMP version 6.1.2  MPFR version 3.1.6-p2  MPC version 1.1.0  isl version none]
+  ignore line: [warning: GMP header version 6.1.2 differs from library version 6.2.1.]
+  ignore line: [warning: MPFR header version 3.1.6-p2 differs from library version 4.1.0.]
+  ignore line: [warning: MPC header version 1.1.0 differs from library version 1.2.1.]
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [Compiler executable checksum: 0d00f383c01c36148a8ac54616c5e6dc]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_61f17.dir/CMakeCCompilerABI.c.o' '-c' '-march=rv64imafdc_zicsr_zifencei' '-mabi=lp64d' '-misa-spec=20191213' '-march=rv64imafdc_zicsr_zifencei_zmmul' '-dumpdir' 'CMakeFiles/cmTC_61f17.dir/']
+  ignore line: [ /opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/bin/as -v --traditional-format -march=rv64imafdc_zicsr_zifencei -march=rv64imafdc_zicsr_zifencei_zmmul -mabi=lp64d -misa-spec=20191213 -o CMakeFiles/cmTC_61f17.dir/CMakeCCompilerABI.c.o /tmp/cczTQvLv.s]
+  ignore line: [GNU assembler version 2.38 (riscv64-unknown-elf) using BFD version (GNU Binutils) 2.38]
+  ignore line: [COMPILER_PATH=/opt/cloudbear/bin/../libexec/gcc/riscv64-unknown-elf/12.1.0/:/opt/cloudbear/bin/../libexec/gcc/:/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/bin/]
+  ignore line: [LIBRARY_PATH=/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/rv64imafdc_zicsr_zifencei_zmmul/lp64d/:/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d/:/opt/cloudbear/bin/../riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d/:/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/:/opt/cloudbear/bin/../lib/gcc/:/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/lib/:/opt/cloudbear/bin/../riscv64-unknown-elf/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_61f17.dir/CMakeCCompilerABI.c.o' '-c' '-march=rv64imafdc_zicsr_zifencei' '-mabi=lp64d' '-misa-spec=20191213' '-march=rv64imafdc_zicsr_zifencei_zmmul' '-dumpdir' 'CMakeFiles/cmTC_61f17.dir/CMakeCCompilerABI.c.']
+  ignore line: [Linking C executable cmTC_61f17]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_61f17.dir/link.txt --verbose=1]
+  ignore line: [/opt/cloudbear/bin/riscv64-unknown-elf-gcc  -v CMakeFiles/cmTC_61f17.dir/CMakeCCompilerABI.c.o -o cmTC_61f17 ]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/opt/cloudbear/bin/riscv64-unknown-elf-gcc]
+  ignore line: [COLLECT_LTO_WRAPPER=/opt/cloudbear/bin/../libexec/gcc/riscv64-unknown-elf/12.1.0/lto-wrapper]
+  ignore line: [Target: riscv64-unknown-elf]
+  ignore line: [Configured with: ../riscv-gcc/configure --target=riscv64-unknown-elf --prefix=/home/jenkins/workspace/cb_task/riscv --datarootdir=/home/jenkins/workspace/cb_task/riscv/share/riscv64-unknown-elf --disable-shared --disable-threads --enable-tls --enable-languages=c c++ --with-system-zlib --with-newlib --with-sysroot=/home/jenkins/workspace/cb_task/riscv/riscv64-unknown-elf --with-native-system-header-dir=/include --disable-libmudflap --disable-libssp --disable-libquadmath --disable-libgomp --disable-nls 'CFLAGS_FOR_TARGET=-O2 -mcmodel=medany' 'CXXFLAGS_FOR_TARGET=-O2 -mcmodel=medany']
+  ignore line: [Thread model: single]
+  ignore line: [Supported LTO compression algorithms: zlib zstd]
+  ignore line: [gcc version 12.1.0 (GCC) ]
+  ignore line: [COMPILER_PATH=/opt/cloudbear/bin/../libexec/gcc/riscv64-unknown-elf/12.1.0/:/opt/cloudbear/bin/../libexec/gcc/:/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/bin/]
+  ignore line: [LIBRARY_PATH=/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/rv64imafdc_zicsr_zifencei_zmmul/lp64d/:/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d/:/opt/cloudbear/bin/../riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d/:/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/:/opt/cloudbear/bin/../lib/gcc/:/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/lib/:/opt/cloudbear/bin/../riscv64-unknown-elf/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_61f17' '-march=rv64imafdc_zicsr_zifencei' '-mabi=lp64d' '-misa-spec=20191213' '-march=rv64imafdc_zicsr_zifencei_zmmul' '-dumpdir' 'cmTC_61f17.']
+  link line: [ /opt/cloudbear/bin/../libexec/gcc/riscv64-unknown-elf/12.1.0/collect2 -plugin /opt/cloudbear/bin/../libexec/gcc/riscv64-unknown-elf/12.1.0/liblto_plugin.so -plugin-opt=/opt/cloudbear/bin/../libexec/gcc/riscv64-unknown-elf/12.1.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccvQ6laq.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgloss -plugin-opt=-pass-through=-lgcc --sysroot=/opt/cloudbear/bin/../riscv64-unknown-elf -melf64lriscv -o cmTC_61f17 /opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d/crt0.o /opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/rv64imafdc_zicsr_zifencei_zmmul/lp64d/crtbegin.o -L/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/rv64imafdc_zicsr_zifencei_zmmul/lp64d -L/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d -L/opt/cloudbear/bin/../riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d -L/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0 -L/opt/cloudbear/bin/../lib/gcc -L/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/lib -L/opt/cloudbear/bin/../riscv64-unknown-elf/lib CMakeFiles/cmTC_61f17.dir/CMakeCCompilerABI.c.o -lgcc --start-group -lc -lgloss --end-group -lgcc /opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/rv64imafdc_zicsr_zifencei_zmmul/lp64d/crtend.o]
+    arg [/opt/cloudbear/bin/../libexec/gcc/riscv64-unknown-elf/12.1.0/collect2] ==> ignore
+    arg [-plugin] ==> ignore
+    arg [/opt/cloudbear/bin/../libexec/gcc/riscv64-unknown-elf/12.1.0/liblto_plugin.so] ==> ignore
+    arg [-plugin-opt=/opt/cloudbear/bin/../libexec/gcc/riscv64-unknown-elf/12.1.0/lto-wrapper] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccvQ6laq.res] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgloss] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [--sysroot=/opt/cloudbear/bin/../riscv64-unknown-elf] ==> ignore
+    arg [-melf64lriscv] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_61f17] ==> ignore
+    arg [/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d/crt0.o] ==> obj [/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d/crt0.o]
+    arg [/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/rv64imafdc_zicsr_zifencei_zmmul/lp64d/crtbegin.o] ==> obj [/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/rv64imafdc_zicsr_zifencei_zmmul/lp64d/crtbegin.o]
+    arg [-L/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/rv64imafdc_zicsr_zifencei_zmmul/lp64d] ==> dir [/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/rv64imafdc_zicsr_zifencei_zmmul/lp64d]
+    arg [-L/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d] ==> dir [/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d]
+    arg [-L/opt/cloudbear/bin/../riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d] ==> dir [/opt/cloudbear/bin/../riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d]
+    arg [-L/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0] ==> dir [/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0]
+    arg [-L/opt/cloudbear/bin/../lib/gcc] ==> dir [/opt/cloudbear/bin/../lib/gcc]
+    arg [-L/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/lib] ==> dir [/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/lib]
+    arg [-L/opt/cloudbear/bin/../riscv64-unknown-elf/lib] ==> dir [/opt/cloudbear/bin/../riscv64-unknown-elf/lib]
+    arg [CMakeFiles/cmTC_61f17.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [-lgcc] ==> lib [gcc]
+    arg [--start-group] ==> ignore
+    arg [-lc] ==> lib [c]
+    arg [-lgloss] ==> lib [gloss]
+    arg [--end-group] ==> ignore
+    arg [-lgcc] ==> lib [gcc]
+    arg [/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/rv64imafdc_zicsr_zifencei_zmmul/lp64d/crtend.o] ==> obj [/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/rv64imafdc_zicsr_zifencei_zmmul/lp64d/crtend.o]
+  collapse obj [/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d/crt0.o] ==> [/opt/cloudbear/riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d/crt0.o]
+  collapse obj [/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/rv64imafdc_zicsr_zifencei_zmmul/lp64d/crtbegin.o] ==> [/opt/cloudbear/lib/gcc/riscv64-unknown-elf/12.1.0/rv64imafdc_zicsr_zifencei_zmmul/lp64d/crtbegin.o]
+  collapse obj [/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/rv64imafdc_zicsr_zifencei_zmmul/lp64d/crtend.o] ==> [/opt/cloudbear/lib/gcc/riscv64-unknown-elf/12.1.0/rv64imafdc_zicsr_zifencei_zmmul/lp64d/crtend.o]
+  collapse library dir [/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/rv64imafdc_zicsr_zifencei_zmmul/lp64d] ==> [/opt/cloudbear/lib/gcc/riscv64-unknown-elf/12.1.0/rv64imafdc_zicsr_zifencei_zmmul/lp64d]
+  collapse library dir [/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d] ==> [/opt/cloudbear/riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d]
+  collapse library dir [/opt/cloudbear/bin/../riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d] ==> [/opt/cloudbear/riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d]
+  collapse library dir [/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0] ==> [/opt/cloudbear/lib/gcc/riscv64-unknown-elf/12.1.0]
+  collapse library dir [/opt/cloudbear/bin/../lib/gcc] ==> [/opt/cloudbear/lib/gcc]
+  collapse library dir [/opt/cloudbear/bin/../lib/gcc/riscv64-unknown-elf/12.1.0/../../../../riscv64-unknown-elf/lib] ==> [/opt/cloudbear/riscv64-unknown-elf/lib]
+  collapse library dir [/opt/cloudbear/bin/../riscv64-unknown-elf/lib] ==> [/opt/cloudbear/riscv64-unknown-elf/lib]
+  implicit libs: [gcc;c;gloss;gcc]
+  implicit objs: [/opt/cloudbear/riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d/crt0.o;/opt/cloudbear/lib/gcc/riscv64-unknown-elf/12.1.0/rv64imafdc_zicsr_zifencei_zmmul/lp64d/crtbegin.o;/opt/cloudbear/lib/gcc/riscv64-unknown-elf/12.1.0/rv64imafdc_zicsr_zifencei_zmmul/lp64d/crtend.o]
+  implicit dirs: [/opt/cloudbear/lib/gcc/riscv64-unknown-elf/12.1.0/rv64imafdc_zicsr_zifencei_zmmul/lp64d;/opt/cloudbear/riscv64-unknown-elf/lib/rv64imafdc_zicsr_zifencei_zmmul/lp64d;/opt/cloudbear/lib/gcc/riscv64-unknown-elf/12.1.0;/opt/cloudbear/lib/gcc;/opt/cloudbear/riscv64-unknown-elf/lib]
+  implicit fwks: []
+
+

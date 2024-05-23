@@ -7,49 +7,40 @@ import sys
 
 class ProjectGenerator:
     def __init__(self,args):
-        self.source_path = args.input_dir + '/' + args.source
-        self.output_path = args.output_dir + "/build/" + args.output_file
-        self.obj_main_path = args.output_dir + "/object/" + args.source.replace(".c",".o")
-        if (args.library_source):
-            self.obj_lib_path = [None] * len(args.library_source) 
-            for n in range(len(args.library_source)):
-                self.obj_lib_path[n] = args.output_dir + "/object/" + args.library_source[n].replace(".c",".o")
+        self.source_path = args.idir + '/' + args.source
+        self.output_path = args.odir + "/build/" + args.output_file
+        self.obj_main_path = args.odir + "/object/" + args.source.replace(".c",".o")
+        if (args.libc):
+            self.obj_lib_path = [None] * len(args.libc) 
+            for n in range(len(args.libc)):
+                self.obj_lib_path[n] = args.odir + "/object/" + args.libc[n].replace(".c",".o")
         else: self.obj_lib_path = ""
-        if (args.library_header):
-            self.header_lib_path = [None] * len(args.library_header)
-            for (n) in range(len(args.library_header)): 
-                self.header_lib_path[n] = args.input_dir + '/' + args.library_header[n]
+        if (args.libh):
+            self.header_lib_path = [None] * len(args.libh)
+            for (n) in range(len(args.libh)): 
+                self.header_lib_path[n] = args.idir + '/' + args.libh[n]
         else: self.header_lib_path = ""
-        self.cflags_str = ""
-        if (args.cflags) : 
-            for n in range(len(args.cflags)):
-                self.cflags_str += '-' + args.cflags[n]+' '
         
 
     
     def createFolders(self,args):
-        home = os.path.expanduser("~")
-        if (os.path.isdir(home + args.output_dir + "/build") == False): os.mkdir(home + args.output_dir + "/build")
-        if (args.ide == "make"):
-            if (os.path.isdir(home + args.output_dir + "/object") == False): os.mkdir(home + args.output_dir + "/object")
-        #if (args.library_header):
-            #if (os.path.isdir(home + args.output_dir + "/headers") == False): os.mkdir(home + args.output_dir + "/headers")
-        if (os.path.isdir(home + args.output_dir + "/src") == False): os.mkdir(home + args.output_dir + "/src")
+        if (os.path.isdir(args.odir + "/build") == False): os.mkdir(args.odir + "/build")
+        if (args.ide == "makefile"):
+            if (os.path.isdir(args.odir + "/object") == False): os.mkdir(args.odir + "/object")
 
     def copyFiles(self,args):
-        home = os.path.expanduser("~")
-        if (args.library_header):
-            for (n) in range(len(args.library_header)): 
-                shutil.copy(home + self.header_lib_path[n],home + args.output_dir + "/src/" + args.library_header[n])
+        if (args.libh):
+            for (n) in range(len(args.libh)): 
+                shutil.copy(self.header_lib_path[n],args.odir + '/' + args.libh[n])
         
-        shutil.copy(home + self.source_path, home + args.output_dir + "/src/" + args.source)
-        shutil.copytree("bsp", home + args.input_dir + "/bsp")
+        shutil.copy(self.source_path,args.odir + '/' + args.source)
+        shutil.copytree("bsp",args.odir + "/bsp")
 
-        if (args.openocd): shutil.copy(home + args.input_dir + '/' + args.openocd, home + args.output_dir + "/bsp/" + args.openocd)
+        shutil.copy("templates/spike.cfg",args.odir + "/spike.cfg")
 
-        if (args.library_source):
-            for i in range (len(args.library_source)):
-                shutil.copy(home + args.input_dir + '/' + args.library_source[i], home + args.output_dir + "/src/" + args.library_source[i])
+        if (args.libc):
+            for i in range (len(args.libc)):
+                shutil.copy(args.idir + '/' + args.libc[i],args.odir + '/' + args.libc[i])
 
 class MakeProjectGenerator(ProjectGenerator):
     def __init__(self,args):
@@ -57,64 +48,61 @@ class MakeProjectGenerator(ProjectGenerator):
         file_loader = FileSystemLoader('templates')
         env = Environment(loader = file_loader)
         self.template = env.get_template('Makefile.template')
-        if (args.openocd): self.openocd = args.output_dir + "/bsp/" + args.openocd
+        self.openocd = args.odir + "/spike.cfg"
         
     
     def createDebugScripts(self,args):
-        home = os.path.expanduser("~")
-        bash_templates_loader = FileSystemLoader('templates/bash_templates')
+        bash_templates_loader = FileSystemLoader('templates/bash')
         env = Environment(loader = bash_templates_loader)
         tm = env.get_template('start_debug.template')
-        result = tm.render(executable = home + self.output_path, openocd_cfg = home + self.openocd)
-        f = open(home + args.output_dir + "/start_debug.sh","w")
+        result = tm.render(executable = self.output_path, openocd_cfg = self.openocd)
+        f = open(args.odir + "/start_debug.sh","w")
         f.write(result)
-        shutil.copy("templates/bash_templates/end_debug.sh",home + args.output_dir + "/end_debug.sh")
+        shutil.copy("templates/bash/end_debug.sh",args.odir + "/end_debug.sh")
+        shutil.copy("templates/bash/commands.txt",args.odir + "/commands.txt")
 
     def generateProject(self,args):
-        home = os.path.expanduser("~")
         super().createFolders(args)
         super().copyFiles(args)
         object_str = ""
-        if (args.library_source): object_str = home + str(self.obj_lib_path)[2:-2]
+        if (args.libc): object_str = str(self.obj_lib_path)[2:-2]
         header_str = ""
-        if (args.library_header): header_str = home + str(self.header_lib_path)[2:-2]
+        if (args.libh): header_str = str(self.header_lib_path)[2:-2]
 
-        result = self.template.render(source = home + self.source_path
-                       , output = home + self.output_path
-                       , main_obj = home + self.obj_main_path
+        result = self.template.render(source = args.odir + '/' + args.source
+                       , output = self.output_path
+                       , main_obj = self.obj_main_path
                        , lib_obj = object_str
-                       , lib_h = header_str
-                       , cflags = self.cflags_str)
-        f = open(home + args.output_dir + "/Makefile","w")
+                       , lib_h = header_str)
+        f = open(args.odir + "/Makefile","w")
         f.write(result)
 
-        if (args.library_source):
-            libc_path = [None] * len(args.library_source)
-            for n in range (len(args.library_source)):
-                libc_path[n] = home + args.input_dir + '/' + args.library_source[n] 
+        if (args.libc):
+            libc_path = [None] * len(args.libc)
+            for n in range (len(args.libc)):
+                libc_path[n] = args.odir + '/' + args.libc[n] 
 
 
-        if (args.library_source):
-            for n in range (len(args.library_source)):
-                obj_string = home + self.obj_lib_path[n] + ' : ' + home + args.input_dir + '/' + args.library_source[n] + " " + home + self.header_lib_path[n]
+        if (args.libc):
+            for n in range (len(args.libc)):
+                obj_string = self.obj_lib_path[n] + ' : ' + args.odir + '/' + args.libc[n] + " " + self.header_lib_path[n]
                 f.write(obj_string)
                 f.write('\n')
-                f.write('\t' + "riscv64-unknown-elf-gcc -o " + home + self.obj_lib_path[n] + " -c " + libc_path[n] + " $(COMPILER_FLAGS)")
+                f.write('\t' + "riscv64-unknown-elf-gcc -o " + self.obj_lib_path[n] + " -c " + libc_path[n] + " $(COMPILER_FLAGS)")
         f.close()
 
-        if (args.openocd): self.createDebugScripts(args)
+        self.createDebugScripts(args)
 
 
 class VSCodeGenerator(ProjectGenerator):
     def __init__(self,args):
         super().__init__(args)
-        home = os.path.expanduser("~")
         file_loader = FileSystemLoader('templates')
         env = Environment(loader = file_loader)
         self.template = env.get_template('CMakeLists.template')
-        self.vsfolder = args.output_dir + "/.vscode"
+        self.vsfolder = args.odir + "/.vscode"
         self.output_path = args.output_file
-        f = open(home + args.input_dir + '/' + args.config,"r")
+        f = open("config.yaml","r")
         for line in f:
             if ("compilerPath" in line):
                 index = line.find(":")
@@ -129,89 +117,84 @@ class VSCodeGenerator(ProjectGenerator):
                 index = line.find(":")
                 self.openocd_path = line[index + 2:-1]
         
-        if (args.library_source):
-            self.output_lib_path = [None] * len(args.library_source)
-            for (n) in range(len(args.library_source)): 
-                self.output_lib_path[n] = args.output_dir + '/src/' + args.library_source[n]
+        if (args.libc):
+            self.output_lib_path = [None] * len(args.libc)
+            for (n) in range(len(args.libc)): 
+                self.output_lib_path[n] = args.odir + '/' + args.libc[n]
         else: self.output_lib_path = ""
             
 
     
     def createFolders(self,args):
         super().createFolders(args)
-        home = os.path.expanduser("~")
-        if (os.path.isdir(home + self.vsfolder) == False): os.mkdir(home + self.vsfolder)
+        if (os.path.isdir(self.vsfolder) == False): os.mkdir(self.vsfolder)
     
     def copyFiles(self, args):
         super().copyFiles(args)
-        home = os.path.expanduser("~")
-        vs_templates_loader = FileSystemLoader('templates/vscode_templates')
+        vs_templates_loader = FileSystemLoader('templates/vscode')
         env = Environment(loader = vs_templates_loader)
         tm = env.get_template('launch.template')
-        result = tm.render(output = home + args.output_dir + "/build/" + args.output_file,
+        result = tm.render(output = args.odir + "/build/" + args.output_file,
                            gdb = self.gdb_path)
-        launch_file = open(home + args.output_dir + "/.vscode/launch.json","w")
+        launch_file = open(args.odir + "/.vscode/launch.json","w")
         launch_file.write(result)
         launch_file.close()
 
         tm = env.get_template("c_cpp_properties.template")
         result = tm.render(compiler = self.compiler_path)
-        cpp_file = open(home + args.output_dir + "/.vscode/c_cpp_properties.json","w")
+        cpp_file = open(args.odir + "/.vscode/c_cpp_properties.json","w")
         cpp_file.write(result)
         cpp_file.close()
 
-        shutil.copy(home + "/project/generator/templates/vscode_templates/settings.json",home + args.output_dir + "/.vscode/settings.json")
+        shutil.copy("templates/vscode/settings.json",args.odir + "/.vscode/settings.json")
 
         tm = env.get_template('tasks.template')
-        shutil.copy(home + args.input_dir + '/' + args.openocd, home + args.output_dir + "/bsp/" + args.openocd)
-        result = tm.render(output = home + args.output_dir + "/build/" + args.output_file, openocd_cfg = home + args.output_dir + "/bsp/" + args.openocd,
+        result = tm.render(output = args.odir + "/build/" + args.output_file, 
+                           openocd_cfg = args.odir + "/spike.cfg",
                            openocd = self.openocd_path,
                            spike  = self.spike_path)
-        tasks_file = open(home + args.output_dir + "/.vscode/tasks.json","w")
+        tasks_file = open(args.odir + "/.vscode/tasks.json","w")
         tasks_file.write(result)
         tasks_file.close()
 
     def generateProject(self,args):
         self.createFolders(args)
         self.copyFiles(args)
-        home = os.path.expanduser("~")
 
-        libs = str(args.library_source)[2:-2].replace(".c","")
+        libs = str(args.libc)[2:-2].replace(".c","")
         library_str = ""
-        if (args.library_source):
-            for n in range (len(args.library_source)):
-                lib_name = args.library_source[n].replace(".c","")
-                library_str += "add_library( " + lib_name + " STATIC " + home + self.output_lib_path[n] + ")" + '\n'
+        if (args.libc):
+            for n in range (len(args.libc)):
+                lib_name = args.libc[n].replace(".c","")
+                library_str += "add_library( " + lib_name + " STATIC " + self.output_lib_path[n] + ")" + '\n'
                 library_str += "target_compile_options( " + lib_name + " PUBLIC ${COMPILER_LIST})" + '\n' 
-        result = self.template.render(source = home + self.source_path
+        result = self.template.render(source = args.odir + '/' + args.source
                        , output = self.output_path
-                       , cflags = self.cflags_str
                        , libraries = library_str
                        , lib_names = libs
-                       , output_dir = home + args.output_dir)
-        f = open(home + args.output_dir + '/' + "CMakeLists.txt","w")
+                       , output_dir = args.odir)
+        f = open(args.odir + '/' + "CMakeLists.txt","w")
         f.write(result)
         f.close()
 
 
 def parseArguments():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-ide",type=str,help="In what IDE should the project be created",required=True, choices= {"make","vscode"})
+    parser.add_argument("--ide",type=str,help="In what IDE should the project be created",required=True, choices= {"makefile","vscode"})
     parser.add_argument("-s","--source", type=str, help="Source file to compile", required=True)
     parser.add_argument("-o","--output_file",type=str, help="Output file",required=True)
-    parser.add_argument("-idir", "--input_dir", type=str, help="Input directory",required=True)
-    parser.add_argument("-odir", "--output_dir", type=str, help="Output directory",required=True)
-    parser.add_argument("-libc", "--library_source", type = str, help="Source library code file", required=False, nargs="+")
-    parser.add_argument("-libh", "--library_header", type = str, help="Source library header file", required=False, nargs="+")
-    parser.add_argument("--cflags",type = str, help="Flags for compilation", required=False, nargs="+")
-    parser.add_argument("--openocd", type = str, help = "OpenOCD configuration", required = False)
-    parser.add_argument("--config", type = str, help = "Compiler,GDB and Openocd configuration", required=False)
+    parser.add_argument("--idir", type=str, help="Input directory",required=True)
+    parser.add_argument("--odir", type=str, help="Output directory",required=True)
+    parser.add_argument("--libc", type = str, help="Source library code file", required=False, nargs="+")
+    parser.add_argument("--libh", type = str, help="Source library header file", required=False, nargs="+")
     return parser.parse_args()
 
-if (len(sys.argv)> 1):
+
+
+def main():
     args = parseArguments()
 
-    if (args.ide == "make"):
+    if (args.ide == "makefile"):
         project_generator = MakeProjectGenerator(args)
         project_generator.generateProject(args)
 
@@ -222,6 +205,8 @@ if (len(sys.argv)> 1):
     else: print("Not supported")
 
 
+if __name__ == "__main__":
+    main()
 
 
 

@@ -3,17 +3,14 @@ import shlex
 
 def test_MakeProject():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-ide",type=str,help="In what IDE should the project be created",required=True, choices= {"make","vscode"})
+    parser.add_argument("--ide",type=str,help="In what IDE should the project be created",required=True, choices= {"make","vscode"})
     parser.add_argument("-s","--source", type=str, help="Source file to compile", required=True)
     parser.add_argument("-o","--output_file",type=str, help="Output file",required=True)
-    parser.add_argument("-idir", "--input_dir", type=str, help="Input directory",required=True)
-    parser.add_argument("-odir", "--output_dir", type=str, help="Output directory",required=True)
-    parser.add_argument("-libc", "--library_source", type = str, help="Source library code file", required=False, nargs="+")
-    parser.add_argument("-libh", "--library_header", type = str, help="Source library header file", required=False, nargs="+")
-    parser.add_argument("--cflags",type = str, help="Flags for compilation", required=False, nargs="+")
-    parser.add_argument("--openocd", type = str, help = "OpenOCD configuration", required = False)
-    parser.add_argument("--config", type = str, help = "Compiler,GDB and Openocd configuration", required=False)
-    argString = "-ide make -idir /project/generator/tests/riscv_make -odir /project/generator/tests/riscv_make -s main.c  -libc util.c -libh util.h -o edit --cflags g"
+    parser.add_argument("--idir", type=str, help="Input directory",required=True)
+    parser.add_argument("--odir", type=str, help="Output directory",required=True)
+    parser.add_argument("--libc", type = str, help="Source library code file", required=False, nargs="+")
+    parser.add_argument("--libh", type = str, help="Source library header file", required=False, nargs="+")
+    argString = "--ide make --idir tests/riscv_make --odir tests/riscv_make -s main.c  --libc util.c --libh util.h -o edit"
     args = parser.parse_args(shlex.split(argString))
     project_generator = MakeProjectGenerator(args)
     project_generator.generateProject(args)
@@ -27,17 +24,15 @@ def test_MakeProject():
 
 def test_VSCodeProject():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-ide",type=str,help="In what IDE should the project be created",required=True, choices= {"make","vscode"})
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--ide",type=str,help="In what IDE should the project be created",required=True, choices= {"make","vscode"})
     parser.add_argument("-s","--source", type=str, help="Source file to compile", required=True)
     parser.add_argument("-o","--output_file",type=str, help="Output file",required=True)
-    parser.add_argument("-idir", "--input_dir", type=str, help="Input directory",required=True)
-    parser.add_argument("-odir", "--output_dir", type=str, help="Output directory",required=True)
-    parser.add_argument("-libc", "--library_source", type = str, help="Source library code file", required=False, nargs="+")
-    parser.add_argument("-libh", "--library_header", type = str, help="Source library header file", required=False, nargs="+")
-    parser.add_argument("--cflags",type = str, help="Flags for compilation", required=False, nargs="+")
-    parser.add_argument("--openocd", type = str, help = "OpenOCD configuration", required = False)
-    parser.add_argument("--config", type = str, help = "Compiler,GDB and Openocd configuration", required=False)
-    argString = " -ide vscode -idir /project/generator/tests/riscv_vscode -odir /project/generator/tests/riscv_vscode -s rot13.c  -o edit.elf --cflags g --openocd spike.cfg --config generator.cfg"
+    parser.add_argument("--idir", type=str, help="Input directory",required=True)
+    parser.add_argument("--odir", type=str, help="Output directory",required=True)
+    parser.add_argument("--libc", type = str, help="Source library code file", required=False, nargs="+")
+    parser.add_argument("--libh", type = str, help="Source library header file", required=False, nargs="+")
+    argString = " --ide vscode --idir /project/generator/tests/riscv_vscode --odir /project/generator/tests/riscv_vscode -s rot13.c  -o edit"
     args = parser.parse_args(shlex.split(argString))
     project_generator = VSCodeGenerator(args)
     project_generator.generateProject(args)
@@ -52,17 +47,14 @@ def test_VSCodeProject():
 
 def testMakeProjectDebug():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-ide",type=str,help="In what IDE should the project be created",required=True, choices= {"make","vscode"})
+    parser.add_argument("--ide",type=str,help="In what IDE should the project be created",required=True, choices= {"make","vscode"})
     parser.add_argument("-s","--source", type=str, help="Source file to compile", required=True)
     parser.add_argument("-o","--output_file",type=str, help="Output file",required=True)
-    parser.add_argument("-idir", "--input_dir", type=str, help="Input directory",required=True)
-    parser.add_argument("-odir", "--output_dir", type=str, help="Output directory",required=True)
-    parser.add_argument("-libc", "--library_source", type = str, help="Source library code file", required=False, nargs="+")
-    parser.add_argument("-libh", "--library_header", type = str, help="Source library header file", required=False, nargs="+")
-    parser.add_argument("--cflags",type = str, help="Flags for compilation", required=False, nargs="+")
-    parser.add_argument("--openocd", type = str, help = "OpenOCD configuration", required = False)
-    parser.add_argument("--config", type = str, help = "Compiler,GDB and Openocd configuration", required=False)
-    argString = "-ide make -idir /project/generator/tests/riscv_make_debug -odir /project/generator/tests/riscv_make_debug -s one.c -o one.elf --cflags g --openocd spike.cfg"
+    parser.add_argument("--idir", type=str, help="Input directory",required=True)
+    parser.add_argument("--odir", type=str, help="Output directory",required=True)
+    parser.add_argument("--libc", type = str, help="Source library code file", required=False, nargs="+")
+    parser.add_argument("--libh", type = str, help="Source library header file", required=False, nargs="+")
+    argString = "--ide make --idir /project/generator/tests/riscv_make_debug --odir /project/generator/tests/riscv_make_debug -s one.c -o one.elf"
     args = parser.parse_args(shlex.split(argString))
     project_generator = MakeProjectGenerator(args)
     project_generator.generateProject(args)

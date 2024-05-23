@@ -4,7 +4,7 @@
       {
         "label": "Run Openocd",
         "type": "process",
-        "command": "{{openocd}}",
+        "command": "/usr/local/bin/openocd",
         "args": [
           "-c set PROBE jlink",
           "-c set GDB_PORT 3333",
@@ -39,7 +39,7 @@
           {
         "label": "Run Openocd for Spike",
         "type": "process",
-        "command": "{{openocd}}",
+        "command": "/usr/local/bin/openocd",
         "args": [
           "-c set PROBE remote_bitbang",
           "-c set GDB_PORT 3333",
@@ -47,7 +47,7 @@
           "-c set REMOTE_BITBANG_PORT 7777",
           "-c set N_CORES 2",
           "-f",
-          "{{openocd_cfg}}"
+          "/home/lavrinenko/project/generator/test_projects/outputs/vscode/spike.cfg"
         ],
         "isBackground": true,
         "echoCommand": true,
@@ -81,9 +81,9 @@
       {
         "label": "Launch the program in Spike",
         "type": "process",
-        "command": "{{spike}}",
+        "command": "/usr/bin/spike",
         "args": [
-          "{{output}}"
+          "/home/lavrinenko/project/generator/test_projects/outputs/vscode/build/edit"
         ],
         "isBackground": true,
         "echoCommand": true,
@@ -111,11 +111,12 @@
       {
         "label": "Run Spike",
         "type": "process",
-        "command": "{{spike}}",
+        "command": "/usr/bin/spike",
         "args": [
           "--rbb-port",
           "9824",
-          "{{output}}"
+          "-H",
+          "/home/lavrinenko/project/generator/test_projects/outputs/vscode/build/edit"
         ],
         "isBackground": true,
         "echoCommand": true,

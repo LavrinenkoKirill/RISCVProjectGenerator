@@ -1,0 +1,2 @@
+/usr/bin/ar qc libcrt.a CMakeFiles/crt.dir/bsp/crt.S.o
+/usr/bin/ranlib libcrt.a

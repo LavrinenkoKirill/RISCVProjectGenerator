@@ -1,0 +1,159 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Run Openocd",
+        "type": "process",
+        "command": "{{openocd}}",
+        "args": [
+          "-c set PROBE jlink",
+          "-c set GDB_PORT 3333",
+          "-c set N_CORES 2",
+          "-f",
+          "build/spike.cfg"
+        ],
+        "isBackground": true,
+        "echoCommand": true,
+        "presentation": {
+          "group": "openocd",
+          "close": true
+        },
+        "problemMatcher": [
+          {
+            "pattern": [
+              {
+                "regexp": ".",
+                "file": 1,
+                "location": 2,
+                "message": 3
+              }
+            ],
+            "background": {
+              "activeOnStart": true,
+              "beginsPattern": ".",
+              "endsPattern": "."
+            }
+          }
+        ]
+      },
+          {
+        "label": "Run Openocd for Spike",
+        "type": "process",
+        "command": "{{openocd}}",
+        "args": [
+          "-c set PROBE remote_bitbang",
+          "-c set GDB_PORT 3333",
+          "-c set REMOTE_BITBANG_HOST 127.0.0.1",
+          "-c set REMOTE_BITBANG_PORT 7777",
+          "-c set N_CORES 2",
+          "-f",
+          "{{openocd_cfg}}"
+        ],
+        "isBackground": true,
+        "echoCommand": true,
+        "presentation": {
+          "group": "openocd",
+          "close": true
+        },
+        "problemMatcher": [
+          {
+            "pattern": [
+              {
+                "regexp": ".",
+                "file": 1,
+                "location": 2,
+                "message": 3
+              }
+            ],
+            "background": {
+              "activeOnStart": true,
+              "beginsPattern": ".",
+              "endsPattern": "."
+            }
+          }
+        ]
+      },
+      {
+        "label": "Stop Openocd",
+        "type": "shell",
+        "command": "killall -9 openocd",
+      },
+      {
+        "label": "Launch the program in Spike",
+        "type": "process",
+        "command": "{{spike}}",
+        "args": [
+          "{{output}}"
+        ],
+        "isBackground": true,
+        "echoCommand": true,
+        "presentation": {
+          "group": "launch "
+        },
+        "problemMatcher": [
+          {
+            "pattern": [
+              {
+                "regexp": ".",
+                "file": 1,
+                "location": 2,
+                "message": 3
+              }
+            ],
+            "background": {
+              "activeOnStart": true,
+              "beginsPattern": ".",
+              "endsPattern": "."
+            }
+          }
+        ]
+      },
+      {
+        "label": "Run Spike",
+        "type": "process",
+        "command": "{{spike}}",
+        "args": [
+          "--rbb-port",
+          "9824",
+          "-H",
+          "{{output}}"
+        ],
+        "isBackground": true,
+        "echoCommand": true,
+        "presentation": {
+          "group": "spike",
+          "close": true
+        },
+        "problemMatcher": [
+          {
+            "pattern": [
+              {
+                "regexp": ".",
+                "file": 1,
+                "location": 2,
+                "message": 3
+              }
+            ],
+            "background": {
+              "activeOnStart": true,
+              "beginsPattern": ".",
+              "endsPattern": "."
+            }
+          }
+        ]
+      },
+      {
+        "label": "Stop Spike",
+        "type": "shell",
+        "command": "killall -9 spike",
+      },
+      {
+        "label": "Run Spike and Openocd",
+        "dependsOn": ["Run Spike", "Run Openocd for Spike"]
+      },
+      {
+        "label": "Stop Spike and Openocd",
+        "dependsOn": ["Stop Spike", "Stop Openocd"]
+      }
+    ]
+  }

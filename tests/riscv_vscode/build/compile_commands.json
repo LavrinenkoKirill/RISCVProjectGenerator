@@ -1,0 +1,17 @@
+[
+{
+  "directory": "/home/lavrinenko/project/generator/tests/riscv_vscode/build",
+  "command": "riscv64-unknown-elf-gcc   -g -mcmodel=medany -std=gnu99 -fno-builtin-printf -march=rv64gcv -mabi=lp64d -g -o CMakeFiles/crt.dir/bsp/crt.S.o -c /home/lavrinenko/project/generator/tests/riscv_vscode/bsp/crt.S",
+  "file": "/home/lavrinenko/project/generator/tests/riscv_vscode/bsp/crt.S"
+},
+{
+  "directory": "/home/lavrinenko/project/generator/tests/riscv_vscode/build",
+  "command": "riscv64-unknown-elf-gcc   -g -mcmodel=medany -std=gnu99 -fno-builtin-printf -march=rv64gcv -mabi=lp64d -g -o CMakeFiles/syscalls.dir/bsp/syscalls.c.o -c /home/lavrinenko/project/generator/tests/riscv_vscode/bsp/syscalls.c",
+  "file": "/home/lavrinenko/project/generator/tests/riscv_vscode/bsp/syscalls.c"
+},
+{
+  "directory": "/home/lavrinenko/project/generator/tests/riscv_vscode/build",
+  "command": "riscv64-unknown-elf-gcc   -g -mcmodel=medany -std=gnu99 -fno-builtin-printf -march=rv64gcv -mabi=lp64d -g -o CMakeFiles/edit.elf.dir/rot13.c.o -c /home/lavrinenko/project/generator/tests/riscv_vscode/rot13.c",
+  "file": "/home/lavrinenko/project/generator/tests/riscv_vscode/rot13.c"
+}
+]

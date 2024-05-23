@@ -2,17 +2,17 @@ PREFIX = .
 SRC = $(wildcard $(PREFIX)/bsp/*.c)\
 	$(wildcard $(PREFIX)/bsp/*.S)
 	
-OBJ = $(addsuffix .o, $(basename $(notdir $(SRC))))
+OBJ = $(addprefix object/, $(addsuffix .o, $(basename $(notdir $(SRC)))))
 
 GCC = riscv64-unknown-elf-gcc
-COMPILER_FLAGS = -mcmodel=medany -std=gnu99 -fno-builtin-printf -march=rv64gcv -mabi=lp64d {{cflags}}
+COMPILER_FLAGS = -mcmodel=medany -std=gnu99 -fno-builtin-printf -march=rv64gcv -mabi=lp64d -g
 LINKER_FLAGS = -static -nostdlib -nostartfiles -T $(PREFIX)/bsp/link.ld
 
 {{output}}: {{main_obj}} {{lib_obj}} $(OBJ)
 	$(GCC) -o {{output}} {{main_obj}} {{lib_obj}} $(OBJ) $(LINKER_FLAGS)
 	
 $(OBJ): $(SRC)
-	$(GCC) $(COMPILER_FLAGS) -c $(SRC)
+	cd object/ && $(GCC) $(COMPILER_FLAGS) -c $(addprefix ../, $(SRC))
 
 {{main_obj}}: {{source}} {{lib_h}}
 	$(GCC) -c {{source}} -o {{main_obj}} $(COMPILER_FLAGS)
