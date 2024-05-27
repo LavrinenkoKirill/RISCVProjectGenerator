@@ -1,6 +1,6 @@
 #!/bin/bash
-xterm -e spike --rbb-port=9824 -H {{executable}} &
+xterm -e {{spike_path}} --rbb-port=9824 -H {{executable}} &
 sleep 1
-xterm -e openocd -f {{openocd_cfg}} &
+xterm -e {{openocd_path}} -f {{openocd_cfg}} &
 sleep 1
-riscv-none-elf-gdb -x commands.txt --args {{executable}}
+{{gdb_path}} -x commands.txt --args {{executable}}

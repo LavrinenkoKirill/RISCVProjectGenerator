@@ -20,6 +20,21 @@ class ProjectGenerator:
             for (n) in range(len(args.libh)): 
                 self.header_lib_path[n] = args.idir + '/' + args.libh[n]
         else: self.header_lib_path = ""
+
+        f = open(ROOT_DIR + "/config.yaml","r")
+        for line in f:
+            if ("compilerPath" in line):
+                index = line.find(":")
+                self.compiler_path = line[index + 2:-1]
+            elif ("gdbPath" in line):
+                index = line.find(":")
+                self.gdb_path = line[index + 2:-1]
+            elif ("spikePath" in line):
+                index = line.find(":")
+                self.spike_path = line[index + 2:-1]
+            elif ("openocdPath" in line):
+                index = line.find(":")
+                self.openocd_path = line[index + 2:-1]
         
 
     
@@ -31,15 +46,15 @@ class ProjectGenerator:
     def copyFiles(self,args):
         if (args.libh):
             for (n) in range(len(args.libh)): 
-                shutil.copy(self.header_lib_path[n],args.odir + '/' + args.libh[n])
+                if (args.idir != args.odir): shutil.copy(self.header_lib_path[n],args.odir + '/' + args.libh[n])
         
-        shutil.copy(self.source_path,args.odir + '/' + args.source)
+        if (args.idir != args.odir): shutil.copy(self.source_path,args.odir + '/' + args.source)
         if (os.path.isdir(args.odir + "/bsp") == False):shutil.copytree(ROOT_DIR + "/bsp",args.odir + "/bsp")
         if (os.path.isfile(args.odir + "/spike.cfg") == False):shutil.copy(ROOT_DIR + "/templates/spike.cfg",args.odir + "/spike.cfg")
 
         if (args.libc):
             for i in range (len(args.libc)):
-                shutil.copy(args.idir + '/' + args.libc[i],args.odir + '/' + args.libc[i])
+                if (args.idir != args.odir): shutil.copy(args.idir + '/' + args.libc[i],args.odir + '/' + args.libc[i])
 
 class MakeProjectGenerator(ProjectGenerator):
     def __init__(self,args):
@@ -54,7 +69,11 @@ class MakeProjectGenerator(ProjectGenerator):
         bash_templates_loader = FileSystemLoader(ROOT_DIR + '/templates/bash')
         env = Environment(loader = bash_templates_loader)
         tm = env.get_template('start_debug.template')
-        result = tm.render(executable = self.output_path, openocd_cfg = self.openocd)
+        result = tm.render(executable = self.output_path, 
+                           openocd_cfg = self.openocd,
+                           spike_path = self.spike_path,
+                           openocd_path = self.openocd_path,
+                           gdb_path = self.gdb_path)
         f = open(args.odir + "/start_debug.sh","w")
         f.write(result)
         shutil.copy(ROOT_DIR + "/templates/bash/end_debug.sh",args.odir + "/end_debug.sh")
@@ -101,20 +120,6 @@ class VSCodeGenerator(ProjectGenerator):
         self.template = env.get_template('CMakeLists.template')
         self.vsfolder = args.odir + "/.vscode"
         self.output_path = args.output_file
-        f = open(ROOT_DIR + "/config.yaml","r")
-        for line in f:
-            if ("compilerPath" in line):
-                index = line.find(":")
-                self.compiler_path = line[index + 2:-1]
-            elif ("gdbPath" in line):
-                index = line.find(":")
-                self.gdb_path = line[index + 2:-1]
-            elif ("spikePath" in line):
-                index = line.find(":")
-                self.spike_path = line[index + 2:-1]
-            elif ("openocdPath" in line):
-                index = line.find(":")
-                self.openocd_path = line[index + 2:-1]
         
         if (args.libc):
             self.output_lib_path = [None] * len(args.libc)
@@ -171,15 +176,88 @@ class VSCodeGenerator(ProjectGenerator):
                        , output = self.output_path
                        , libraries = library_str
                        , lib_names = libs
-                       , output_dir = args.odir)
+                       , output_dir = args.odir
+                       , compiler = self.compiler_path)
         f = open(args.odir + '/' + "CMakeLists.txt","w")
         f.write(result)
         f.close()
 
 
+class EclipseProjectGenerator(ProjectGenerator):
+    def __init__(self,args):
+        super().__init__(args)
+        file_loader = FileSystemLoader(ROOT_DIR + '/templates')
+        env = Environment(loader = file_loader)
+        self.template = env.get_template('CMakeLists.template')
+        self.output_path = args.output_file
+
+        if (args.libc):
+            self.output_lib_path = [None] * len(args.libc)
+            for (n) in range(len(args.libc)): 
+                self.output_lib_path[n] = args.odir + '/' + args.libc[n]
+        else: self.output_lib_path = ""
+    
+    def copyFiles(self, args):
+        super().copyFiles(args)
+        shutil.copy(ROOT_DIR + "/templates/eclipse/.cproject",args.odir + "/.cproject")
+        shutil.copy(ROOT_DIR + "/templates/eclipse/.project",args.odir + "/.project")
+        eclipse_templates_loader = FileSystemLoader(ROOT_DIR + '/templates/eclipse')
+        env = Environment(loader = eclipse_templates_loader)
+        tm = env.get_template('Debug.template')
+        project_path = args.odir.split('/')
+        project_name = project_path[-1]
+        result = tm.render(openocd_path = self.openocd_path,
+                           openocd_config = args.odir + "/spike.cfg",
+                           gdb_path = self.gdb_path,
+                           output = args.output_file,
+                           output_dir = project_name)
+        debug_file = open(args.odir + "/Debug.launch","w")
+        debug_file.write(result)
+        debug_file.close()
+
+        bash_templates_loader = FileSystemLoader(ROOT_DIR + '/templates/bash')
+        bash_env = Environment(loader = bash_templates_loader)
+        tm = bash_env.get_template('start_spike.template')
+        result = tm.render(spike_path = self.spike_path,
+                           executable = args.output_file)
+        spike_file = open(args.odir + "/start_spike.sh","w")
+        spike_file.write(result)
+        spike_file.close()
+
+
+
+
+    
+    def generateProject(self,args):
+        self.createFolders(args)
+        self.copyFiles(args)
+
+        libs = str(args.libc)[2:-2].replace(".c","")
+        library_str = ""
+        if (args.libc):
+            for n in range (len(args.libc)):
+                lib_name = args.libc[n].replace(".c","")
+                library_str += "add_library( " + lib_name + " STATIC " + self.output_lib_path[n] + ")" + '\n'
+                library_str += "target_compile_options( " + lib_name + " PUBLIC ${COMPILER_LIST})" + '\n' 
+        result = self.template.render(source = args.odir + '/' + args.source
+                       , output = self.output_path
+                       , libraries = library_str
+                       , lib_names = libs
+                       , output_dir = args.odir
+                       , compiler = self.compiler_path)
+        f = open(args.odir + '/' + "CMakeLists.txt","w")
+        f.write(result)
+        f.close()
+
+
+
+
+
+
+
 def parseArguments():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--ide",type=str,help="In what IDE should the project be created",required=True, choices= {"makefile","vscode"})
+    parser.add_argument("--ide",type=str,help="In what IDE should the project be created",required=True, choices= {"makefile","vscode","eclipse"})
     parser.add_argument("-s","--source", type=str, help="Source file to compile", required=True)
     parser.add_argument("-o","--output_file",type=str, help="Output file",required=True)
     parser.add_argument("--idir", type=str, help="Input directory",required=True)
@@ -199,6 +277,10 @@ def main():
 
     elif (args.ide == "vscode"):
         project_generator = VSCodeGenerator(args)
+        project_generator.generateProject(args)
+    
+    elif (args.ide == "eclipse"):
+        project_generator = EclipseProjectGenerator(args)
         project_generator.generateProject(args)
 
     else: print("Not supported")

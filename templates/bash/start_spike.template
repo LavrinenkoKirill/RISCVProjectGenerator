@@ -1,0 +1,2 @@
+#!/bin/bash
+{{spike_path}} --rbb-port=9824 -H build/default/{{executable}}
