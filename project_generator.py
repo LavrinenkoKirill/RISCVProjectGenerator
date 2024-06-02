@@ -197,19 +197,54 @@ class EclipseProjectGenerator(ProjectGenerator):
                 self.output_lib_path[n] = args.odir + '/' + args.libc[n]
         else: self.output_lib_path = ""
     
+    
+    def createFolders(self, args):
+        if (os.path.isdir(args.odir + "/src") == False): os.mkdir(args.odir + "/src")
+
     def copyFiles(self, args):
-        super().copyFiles(args)
-        shutil.copy(ROOT_DIR + "/templates/eclipse/.cproject",args.odir + "/.cproject")
-        shutil.copy(ROOT_DIR + "/templates/eclipse/.project",args.odir + "/.project")
+        if (args.libh):
+            for (n) in range(len(args.libh)): 
+                shutil.copy(self.header_lib_path[n],args.odir + "/src/" + args.libh[n])
+        
+        shutil.copy(self.source_path,args.odir + "/src/" + args.source)
+        if (os.path.isdir(args.odir + "src/bsp") == False):shutil.copytree(ROOT_DIR + "/bsp",args.odir + "/src/bsp")
+        if (os.path.isfile(args.odir + "/spike.cfg") == False):shutil.copy(ROOT_DIR + "/templates/spike.cfg",args.odir + "/spike.cfg")
+
+        if (args.libc):
+            for i in range (len(args.libc)):
+                shutil.copy(args.idir + '/' + args.libc[i],args.odir + "/src/" + args.libc[i])
+
+
+    
+    def generateProject(self,args):
+        self.createFolders(args)
+        self.copyFiles(args)
+
         eclipse_templates_loader = FileSystemLoader(ROOT_DIR + '/templates/eclipse')
         env = Environment(loader = eclipse_templates_loader)
+        project_template = env.get_template('project.template')
+        project_path = args.odir.split('/')
+        project_name = project_path[-1]
+        result = project_template.render(project = project_name)
+        project_file = open(args.odir + "/.project","w")
+        project_file.write(result)
+        project_file.close()
+
+        cproject_template = env.get_template('cproject.template')
+        result = cproject_template.render(project = project_name,
+                                         output_dir = args.odir)
+        cproject_file = open(args.odir + "/.cproject","w")
+        cproject_file.write(result)
+        cproject_file.close()
+
+
         tm = env.get_template('Debug.template')
         project_path = args.odir.split('/')
         project_name = project_path[-1]
         result = tm.render(openocd_path = self.openocd_path,
                            openocd_config = args.odir + "/spike.cfg",
                            gdb_path = self.gdb_path,
-                           output = args.output_file,
+                           output = project_name + ".elf",
                            output_dir = project_name)
         debug_file = open(args.odir + "/Debug.launch","w")
         debug_file.write(result)
@@ -219,35 +254,10 @@ class EclipseProjectGenerator(ProjectGenerator):
         bash_env = Environment(loader = bash_templates_loader)
         tm = bash_env.get_template('start_spike.template')
         result = tm.render(spike_path = self.spike_path,
-                           executable = args.output_file)
+                           executable = project_name + ".elf")
         spike_file = open(args.odir + "/start_spike.sh","w")
         spike_file.write(result)
         spike_file.close()
-
-
-
-
-    
-    def generateProject(self,args):
-        self.createFolders(args)
-        self.copyFiles(args)
-
-        libs = str(args.libc)[2:-2].replace(".c","")
-        library_str = ""
-        if (args.libc):
-            for n in range (len(args.libc)):
-                lib_name = args.libc[n].replace(".c","")
-                library_str += "add_library( " + lib_name + " STATIC " + self.output_lib_path[n] + ")" + '\n'
-                library_str += "target_compile_options( " + lib_name + " PUBLIC ${COMPILER_LIST})" + '\n' 
-        result = self.template.render(source = args.odir + '/' + args.source
-                       , output = self.output_path
-                       , libraries = library_str
-                       , lib_names = libs
-                       , output_dir = args.odir
-                       , compiler = self.compiler_path)
-        f = open(args.odir + '/' + "CMakeLists.txt","w")
-        f.write(result)
-        f.close()
 
 
 
