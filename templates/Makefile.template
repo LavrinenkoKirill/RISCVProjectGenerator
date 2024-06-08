@@ -5,7 +5,7 @@ SRC = $(wildcard $(PREFIX)/bsp/*.c)\
 OBJ = $(addprefix object/, $(addsuffix .o, $(basename $(notdir $(SRC)))))
 
 GCC = {{compiler_path}}
-COMPILER_FLAGS = -mcmodel=medany -fno-builtin-printf -march=rv64gcv -mabi=lp64d -g
+COMPILER_FLAGS = -mcmodel=medany -fno-builtin-printf -march=rv64gcv -mabi=lp64d -g {{cflags}}
 LINKER_FLAGS = -static -nostdlib -nostartfiles -T $(PREFIX)/bsp/link.ld
 
 {{output}}: {{main_obj}} {{lib_obj}} $(OBJ)

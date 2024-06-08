@@ -13,7 +13,7 @@ set(SYSLIB ${SYSCALLS})
 
 SET(LINKER_SCRIPT ../bsp/link.ld)
 SET(LINKER_FLAGS "-static -nostdlib -nostartfiles -T ${LINKER_SCRIPT}")
-SET(COMPILER_FLAGS "-mcmodel=medany -fno-builtin-printf -march=rv64gcv -mabi=lp64d -g")
+SET(COMPILER_FLAGS "-mcmodel=medany -fno-builtin-printf -march=rv64gcv -mabi=lp64d -g {{cflags}}")
 
 add_library(crt STATIC ${CRTLIB})
 add_library(syscalls STATIC ${SYSLIB})

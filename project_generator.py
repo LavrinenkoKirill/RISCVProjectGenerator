@@ -17,6 +17,12 @@ class ProjectGenerator:
         self.executable_path = "build/" + args.output_file
         self.source = args.source
         self.output_file = args.output_file
+        if (args.cflags):
+            for i in range (len(args.cflags)):
+                args.cflags[i] = "-" + args.cflags[i]
+            delimiter = " "
+            self.cflags = delimiter.join(args.cflags)
+        else: self.cflags = ""
 
         self.source_path = args.idir + '/' + args.source
         if (args.libc):
@@ -59,6 +65,7 @@ class ProjectGenerator:
         if (self.idir != self.odir): shutil.copy(self.source_path,self.odir + '/' + self.source)
         if (os.path.isdir(self.bsp_dir) == False):shutil.copytree(ROOT_DIR + "/bsp",self.bsp_dir)
         if (os.path.isfile(self.openocd_file) == False):shutil.copy(ROOT_DIR + "/templates/spike.cfg",self.openocd_file)
+            
 
         if (self.libc):
             for i in range (len(self.libc)):
@@ -93,17 +100,18 @@ class MakeProjectGenerator(ProjectGenerator):
     def generateProject(self):
         self.createFolders()
         super().copyFiles()
-        object_str = ""
-        if (self.libc): object_str = str(self.obj_lib_path)[2:-2]
-        header_str = ""
-        if (self.libh): header_str = str(self.libh)[2:-2]
+        delimiter = " "
+        object_str = delimiter.join(self.obj_lib_path)
+        header_str = delimiter.join(self.libh)
+        
     
         result = self.template.render(source = self.source
                        , compiler_path = self.compiler_path
                        , output = self.executable_path
                        , main_obj = self.obj_main_path
                        , lib_obj = object_str
-                       , lib_h = header_str)
+                       , lib_h = header_str
+                       , cflags = self.cflags)
 
         f = open(self.odir + "/Makefile","w")
         f.write(result)
@@ -113,7 +121,8 @@ class MakeProjectGenerator(ProjectGenerator):
                 obj_string = self.obj_lib_path[n] + ' : ' + self.libc[n] + " " + self.libh[n]
                 f.write(obj_string)
                 f.write('\n')
-                f.write('\t' + "riscv64-unknown-elf-gcc -o " + self.obj_lib_path[n] + " -c " + self.libc[n] + " $(COMPILER_FLAGS)")
+                f.write('\t' + "$(GCC) -o " + self.obj_lib_path[n] + " -c " + self.libc[n] + " $(COMPILER_FLAGS)")
+                f.write('\n')
         f.close()
 
         self.createDebugScripts()
@@ -159,8 +168,11 @@ class VSCodeGenerator(ProjectGenerator):
         tasks_file = open(self.vsfolder + "/tasks.json","w")
         tasks_file.write(result)
         tasks_file.close()
+        
+        delimiter = " "
+        libs = delimiter.join(self.libc)
+        libs = libs.replace(".c","")
 
-        libs = str(self.libc)[2:-2].replace(".c","")
         library_str = ""
         if (self.libc):
             for n in range (len(self.libc)):
@@ -171,7 +183,8 @@ class VSCodeGenerator(ProjectGenerator):
                        , output = self.output_file
                        , libraries = library_str
                        , lib_names = libs
-                       , compiler = self.compiler_path)
+                       , compiler = self.compiler_path
+                       , cflags = self.cflags)
         f = open(self.odir + '/' + "CMakeLists.txt","w")
         f.write(result)
         f.close()
@@ -220,7 +233,8 @@ class EclipseProjectGenerator(ProjectGenerator):
 
         cproject_template = env.get_template('cproject.template')
         result = cproject_template.render(project = project_name,
-                                         output_dir = self.odir)
+                                          output_dir = self.odir,
+                                          cflags = self.cflags)
         cproject_file = open(self.odir + "/.cproject","w")
         cproject_file.write(result)
         cproject_file.close()
@@ -230,7 +244,6 @@ class EclipseProjectGenerator(ProjectGenerator):
         project_path = self.odir.split('/')
         project_name = project_path[-1]
         result = tm.render(openocd_path = self.openocd_path,
-                           openocd_config = self.openocd_file,
                            gdb_path = self.gdb_path,
                            output = project_name + ".elf",
                            output_dir = project_name)
