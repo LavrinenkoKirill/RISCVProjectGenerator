@@ -10,7 +10,7 @@
           "-c set GDB_PORT 3333",
           "-c set N_CORES 2",
           "-f",
-          "build/spike.cfg"
+          "spike.cfg"
         ],
         "isBackground": true,
         "echoCommand": true,
@@ -47,7 +47,7 @@
           "-c set REMOTE_BITBANG_PORT 7777",
           "-c set N_CORES 2",
           "-f",
-          "{{openocd_cfg}}"
+          "spike.cfg"
         ],
         "isBackground": true,
         "echoCommand": true,

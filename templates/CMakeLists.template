@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.10)
 project(test C)
 set(CMAKE_C_COMPILER {{compiler}})
 
-SET(CRT {{output_dir}}/bsp/crt.S)
-SET(SYSCALLS {{output_dir}}/bsp/syscalls.c)
+SET(CRT bsp/crt.S)
+SET(SYSCALLS bsp/syscalls.c)
 set_property(SOURCE ${CRT} PROPERTY LANGUAGE C)
 
 
@@ -11,9 +11,9 @@ set(CRTLIB ${CRT})
 set(SYSLIB ${SYSCALLS})
 
 
-SET(LINKER_SCRIPT {{output_dir}}/bsp/link.ld)
+SET(LINKER_SCRIPT ../bsp/link.ld)
 SET(LINKER_FLAGS "-static -nostdlib -nostartfiles -T ${LINKER_SCRIPT}")
-SET(COMPILER_FLAGS "-mcmodel=medany -std=gnu99 -fno-builtin-printf -march=rv64gcv -mabi=lp64d -g")
+SET(COMPILER_FLAGS "-mcmodel=medany -fno-builtin-printf -march=rv64gcv -mabi=lp64d -g")
 
 add_library(crt STATIC ${CRTLIB})
 add_library(syscalls STATIC ${SYSLIB})

@@ -10,5 +10,6 @@ generate-main:
 build-main:
 	make -C outputs/ build-make
 	make -C outputs/ build-vscode
+	make -C outputs/ build-eclipse
 
 
